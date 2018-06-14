@@ -18,31 +18,31 @@ public class Usuario {
     private String tipo;
     
     
-    public void getNome(String nome){
+    public void setNome(String nome){
         this.nome = nome;
     }
-    public String setNome(){
+    public String getNome(){
         return this.nome;
     }
     
-    public void getSenha (String senha){
+    public void setSenha (String senha){
         this.senha = senha;
     }
-    public String setSenha(){
+    public String getSenha(){
         return this.senha;
     }
     
-    public void getUsuario(String usuario){
+    public void setUsuario(String usuario){
         this.usuario = usuario;
     }
-    public String setUsuario (){
+    public String getUsuario (){
         return this.usuario;
     }
     
-    public void getTipo(String tipo){
+    public void setTipo(String tipo){
         this.tipo = tipo;
     }
-    public String setTipo(){
+    public String getTipo(){
         return this.tipo;
     }
     
