@@ -11,4 +11,42 @@ package Classes;
  */
 public class Usuario {
     
+        
+    private String nome;
+    private String senha;
+    private String usuario;
+    private String tipo;
+    
+    
+    public void getNome(String nome){
+        this.nome = nome;
+    }
+    public String setNome(){
+        return this.nome;
+    }
+    
+    public void getSenha (String senha){
+        this.senha = senha;
+    }
+    public String setSenha(){
+        return this.senha;
+    }
+    
+    public void getUsuario(String usuario){
+        this.usuario = usuario;
+    }
+    public String setUsuario (){
+        return this.usuario;
+    }
+    
+    public void getTipo(String tipo){
+        this.tipo = tipo;
+    }
+    public String setTipo(){
+        return this.tipo;
+    }
+    
+    
+    
+    
 }
