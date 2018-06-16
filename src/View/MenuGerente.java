@@ -29,19 +29,102 @@ public class MenuGerente extends javax.swing.JFrame {
     private void initComponents() {
 
         Principal = new javax.swing.JPanel();
+        Inicio = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Funcionários = new javax.swing.JPanel();
+        Tarifas = new javax.swing.JPanel();
+        MeuCadastro = new javax.swing.JPanel();
         MenuSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
         btnMeuCadastro = new javax.swing.JButton();
-        btnFaturas = new javax.swing.JButton();
+        btnTarifas = new javax.swing.JButton();
+        btnFuncionarios = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 153));
+        setUndecorated(true);
 
         Principal.setBackground(new java.awt.Color(255, 255, 255));
-        Principal.setLayout(null);
-        Principal.add(jLabel2);
-        jLabel2.setBounds(0, 0, 1369, 582);
+        Principal.setLayout(new java.awt.CardLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Principal.png"))); // NOI18N
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Principal.png"))); // NOI18N
+
+        javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
+        Inicio.setLayout(InicioLayout);
+        InicioLayout.setHorizontalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1379, Short.MAX_VALUE)
+            .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(InicioLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(InicioLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        InicioLayout.setVerticalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 577, Short.MAX_VALUE)
+            .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(InicioLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(InicioLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        Principal.add(Inicio, "card4");
+
+        javax.swing.GroupLayout FuncionáriosLayout = new javax.swing.GroupLayout(Funcionários);
+        Funcionários.setLayout(FuncionáriosLayout);
+        FuncionáriosLayout.setHorizontalGroup(
+            FuncionáriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1379, Short.MAX_VALUE)
+        );
+        FuncionáriosLayout.setVerticalGroup(
+            FuncionáriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 577, Short.MAX_VALUE)
+        );
+
+        Principal.add(Funcionários, "card3");
+
+        javax.swing.GroupLayout TarifasLayout = new javax.swing.GroupLayout(Tarifas);
+        Tarifas.setLayout(TarifasLayout);
+        TarifasLayout.setHorizontalGroup(
+            TarifasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1379, Short.MAX_VALUE)
+        );
+        TarifasLayout.setVerticalGroup(
+            TarifasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 577, Short.MAX_VALUE)
+        );
+
+        Principal.add(Tarifas, "card4");
+
+        javax.swing.GroupLayout MeuCadastroLayout = new javax.swing.GroupLayout(MeuCadastro);
+        MeuCadastro.setLayout(MeuCadastroLayout);
+        MeuCadastroLayout.setHorizontalGroup(
+            MeuCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1379, Short.MAX_VALUE)
+        );
+        MeuCadastroLayout.setVerticalGroup(
+            MeuCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 577, Short.MAX_VALUE)
+        );
+
+        Principal.add(MeuCadastro, "card5");
 
         MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -58,17 +141,37 @@ public class MenuGerente extends javax.swing.JFrame {
         btnMeuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMeuCadastro.setFocusPainted(false);
         Menu.add(btnMeuCadastro);
-        btnMeuCadastro.setBounds(180, 0, 190, 40);
+        btnMeuCadastro.setBounds(560, 0, 190, 40);
 
-        btnFaturas.setBackground(new java.awt.Color(0, 152, 209));
-        btnFaturas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnFaturas.setForeground(new java.awt.Color(255, 255, 255));
-        btnFaturas.setText("Minhas Faturas");
-        btnFaturas.setBorder(null);
-        btnFaturas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFaturas.setFocusPainted(false);
-        Menu.add(btnFaturas);
-        btnFaturas.setBounds(0, 0, 180, 40);
+        btnTarifas.setBackground(new java.awt.Color(0, 152, 209));
+        btnTarifas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnTarifas.setForeground(new java.awt.Color(255, 255, 255));
+        btnTarifas.setText("Tarifas");
+        btnTarifas.setBorder(null);
+        btnTarifas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTarifas.setFocusPainted(false);
+        Menu.add(btnTarifas);
+        btnTarifas.setBounds(370, 0, 190, 40);
+
+        btnFuncionarios.setBackground(new java.awt.Color(0, 152, 209));
+        btnFuncionarios.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnFuncionarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnFuncionarios.setText("Funcionários");
+        btnFuncionarios.setBorder(null);
+        btnFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFuncionarios.setFocusPainted(false);
+        Menu.add(btnFuncionarios);
+        btnFuncionarios.setBounds(180, 0, 190, 40);
+
+        btnInicio.setBackground(new java.awt.Color(0, 152, 209));
+        btnInicio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(255, 255, 255));
+        btnInicio.setText("Inicio");
+        btnInicio.setBorder(null);
+        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInicio.setFocusPainted(false);
+        Menu.add(btnInicio);
+        btnInicio.setBounds(0, 0, 180, 40);
 
         javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
         MenuSuperior.setLayout(MenuSuperiorLayout);
@@ -77,7 +180,7 @@ public class MenuGerente extends javax.swing.JFrame {
             .addGroup(MenuSuperiorLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(0, 1221, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         MenuSuperiorLayout.setVerticalGroup(
@@ -101,7 +204,7 @@ public class MenuGerente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(MenuSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
+                .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -144,12 +247,19 @@ public class MenuGerente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Funcionários;
+    private javax.swing.JPanel Inicio;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuSuperior;
+    private javax.swing.JPanel MeuCadastro;
     private javax.swing.JPanel Principal;
-    private javax.swing.JButton btnFaturas;
+    private javax.swing.JPanel Tarifas;
+    private javax.swing.JButton btnFuncionarios;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMeuCadastro;
+    private javax.swing.JButton btnTarifas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thais/Documents/NetBeansProjects/CPFL/src/cpfl/CPFL.java</file>
-            <file>file:/C:/Users/thais/Documents/NetBeansProjects/CPFL/src/View/MenuCliente.java</file>
-            <file>file:/C:/Users/thais/Documents/NetBeansProjects/CPFL/src/View/Login.java</file>
+            <file>file:/C:/Users/Thais/Documents/GitHub/CPFL/src/View/MenuGerente.java</file>
+            <file>file:/C:/Users/Thais/Documents/GitHub/CPFL/src/View/Login.java</file>
+            <file>file:/C:/Users/Thais/Documents/GitHub/CPFL/src/Classes/Faturas.java</file>
+            <file>file:/C:/Users/Thais/Documents/GitHub/CPFL/src/Classes/Tarifas.java</file>
+            <file>file:/C:/Users/Thais/Documents/GitHub/CPFL/src/Classes/Usuario.java</file>
+            <file>file:/C:/Users/Thais/Documents/GitHub/CPFL/src/View/MenuCliente.java</file>
+            <file>file:/C:/Users/Thais/Documents/GitHub/CPFL/src/Classes/Endereco.java</file>
         </group>
     </open-files>
 </project-private>

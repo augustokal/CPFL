@@ -29,7 +29,41 @@ public class MenuCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         Principal = new javax.swing.JPanel();
+        Faturas = new javax.swing.JPanel();
+        MeuCadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jtfNum = new javax.swing.JTextField();
+        jtfNome = new javax.swing.JTextField();
+        jtfUF = new javax.swing.JTextField();
+        jtfRua = new javax.swing.JTextField();
+        jtfCEP = new javax.swing.JTextField();
+        jtfBairro = new javax.swing.JTextField();
+        jtfCidade = new javax.swing.JTextField();
+        jtfUsuario = new javax.swing.JTextField();
+        jtfSenha = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        CampoCidade = new javax.swing.JLabel();
+        CampoSenha = new javax.swing.JLabel();
+        CampoRua3 = new javax.swing.JLabel();
+        CampoRua5 = new javax.swing.JLabel();
+        CampoCEP1 = new javax.swing.JLabel();
+        CampoBairro1 = new javax.swing.JLabel();
+        CampoUsuario = new javax.swing.JLabel();
+        CampoRua6 = new javax.swing.JLabel();
+        CampoRua7 = new javax.swing.JLabel();
         MenuSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
@@ -37,11 +71,211 @@ public class MenuCliente extends javax.swing.JFrame {
         btnFaturas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         Principal.setBackground(new java.awt.Color(255, 255, 255));
-        Principal.setLayout(null);
-        Principal.add(jLabel2);
-        jLabel2.setBounds(0, 0, 1369, 582);
+        Principal.setLayout(new java.awt.CardLayout());
+
+        Faturas.setBackground(new java.awt.Color(255, 255, 255));
+
+        MeuCadastro.setBackground(new java.awt.Color(255, 255, 255));
+        MeuCadastro.setLayout(null);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel2.setText("UF:");
+        MeuCadastro.add(jLabel2);
+        jLabel2.setBounds(350, 300, 30, 20);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel3.setText("Nome:");
+        MeuCadastro.add(jLabel3);
+        jLabel3.setBounds(30, 28, 38, 15);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel4.setText("Rua:");
+        MeuCadastro.add(jLabel4);
+        jLabel4.setBounds(30, 95, 38, 15);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel5.setText("Nº:");
+        MeuCadastro.add(jLabel5);
+        jLabel5.setBounds(345, 95, 38, 15);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel6.setText("CEP:");
+        MeuCadastro.add(jLabel6);
+        jLabel6.setBounds(30, 150, 38, 20);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel7.setText("Bairro:");
+        MeuCadastro.add(jLabel7);
+        jLabel7.setBounds(30, 240, 60, 15);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel8.setText("Cidade:");
+        MeuCadastro.add(jLabel8);
+        jLabel8.setBounds(30, 300, 60, 15);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel9.setText("Usuário:");
+        MeuCadastro.add(jLabel9);
+        jLabel9.setBounds(30, 360, 60, 15);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel10.setText("Senha:");
+        MeuCadastro.add(jLabel10);
+        jLabel10.setBounds(30, 420, 60, 15);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        MeuCadastro.add(jScrollPane1);
+        jScrollPane1.setBounds(440, 30, 910, 530);
+
+        jtfNum.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNum.setBorder(null);
+        MeuCadastro.add(jtfNum);
+        jtfNum.setBounds(350, 120, 50, 20);
+
+        jtfNome.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNome.setBorder(null);
+        MeuCadastro.add(jtfNome);
+        jtfNome.setBounds(30, 50, 360, 20);
+
+        jtfUF.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUF.setBorder(null);
+        MeuCadastro.add(jtfUF);
+        jtfUF.setBounds(350, 320, 50, 20);
+
+        jtfRua.setBackground(new java.awt.Color(235, 235, 235));
+        jtfRua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfRua.setBorder(null);
+        MeuCadastro.add(jtfRua);
+        jtfRua.setBounds(35, 118, 240, 20);
+
+        jtfCEP.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCEP.setBorder(null);
+        MeuCadastro.add(jtfCEP);
+        jtfCEP.setBounds(40, 180, 360, 20);
+
+        jtfBairro.setBackground(new java.awt.Color(235, 235, 235));
+        jtfBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfBairro.setBorder(null);
+        MeuCadastro.add(jtfBairro);
+        jtfBairro.setBounds(30, 260, 360, 20);
+
+        jtfCidade.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCidade.setBorder(null);
+        MeuCadastro.add(jtfCidade);
+        jtfCidade.setBounds(30, 320, 250, 20);
+
+        jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUsuario.setBorder(null);
+        MeuCadastro.add(jtfUsuario);
+        jtfUsuario.setBounds(30, 380, 240, 20);
+
+        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
+        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfSenha.setBorder(null);
+        MeuCadastro.add(jtfSenha);
+        jtfSenha.setBounds(30, 440, 240, 20);
+
+        jButton1.setText("jButton1");
+        MeuCadastro.add(jButton1);
+        jButton1.setBounds(270, 530, 73, 30);
+
+        jButton2.setText("jButton1");
+        MeuCadastro.add(jButton2);
+        jButton2.setBounds(30, 530, 73, 30);
+
+        jButton3.setText("jButton1");
+        MeuCadastro.add(jButton3);
+        jButton3.setBounds(110, 530, 73, 30);
+
+        jButton4.setText("jButton1");
+        MeuCadastro.add(jButton4);
+        jButton4.setBounds(190, 530, 73, 30);
+
+        CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        MeuCadastro.add(CampoCidade);
+        CampoCidade.setBounds(20, 310, 280, 40);
+
+        CampoSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        MeuCadastro.add(CampoSenha);
+        CampoSenha.setBounds(20, 430, 390, 50);
+
+        CampoRua3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        MeuCadastro.add(CampoRua3);
+        CampoRua3.setBounds(20, 110, 300, 40);
+
+        CampoRua5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
+        MeuCadastro.add(CampoRua5);
+        CampoRua5.setBounds(340, 310, 80, 50);
+
+        CampoCEP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        MeuCadastro.add(CampoCEP1);
+        CampoCEP1.setBounds(30, 170, 390, 50);
+
+        CampoBairro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        MeuCadastro.add(CampoBairro1);
+        CampoBairro1.setBounds(20, 250, 390, 50);
+
+        CampoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        MeuCadastro.add(CampoUsuario);
+        CampoUsuario.setBounds(20, 370, 390, 50);
+
+        CampoRua6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        MeuCadastro.add(CampoRua6);
+        CampoRua6.setBounds(20, 40, 390, 50);
+
+        CampoRua7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
+        MeuCadastro.add(CampoRua7);
+        CampoRua7.setBounds(340, 110, 80, 50);
+
+        javax.swing.GroupLayout FaturasLayout = new javax.swing.GroupLayout(Faturas);
+        Faturas.setLayout(FaturasLayout);
+        FaturasLayout.setHorizontalGroup(
+            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FaturasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MeuCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 1369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        FaturasLayout.setVerticalGroup(
+            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FaturasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(MeuCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Principal.add(Faturas, "Faturas");
+        Faturas.getAccessibleContext().setAccessibleName("");
 
         MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -67,6 +301,11 @@ public class MenuCliente extends javax.swing.JFrame {
         btnFaturas.setBorder(null);
         btnFaturas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFaturas.setFocusPainted(false);
+        btnFaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFaturasActionPerformed(evt);
+            }
+        });
         Menu.add(btnFaturas);
         btnFaturas.setBounds(0, 0, 180, 40);
 
@@ -77,7 +316,7 @@ public class MenuCliente extends javax.swing.JFrame {
             .addGroup(MenuSuperiorLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(0, 1221, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         MenuSuperiorLayout.setVerticalGroup(
@@ -93,7 +332,7 @@ public class MenuCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, 1389, Short.MAX_VALUE)
             .addComponent(MenuSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -101,11 +340,15 @@ public class MenuCliente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(MenuSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
+                .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFaturasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFaturasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,12 +386,46 @@ public class MenuCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CampoBairro1;
+    private javax.swing.JLabel CampoCEP1;
+    private javax.swing.JLabel CampoCidade;
+    private javax.swing.JLabel CampoRua3;
+    private javax.swing.JLabel CampoRua5;
+    private javax.swing.JLabel CampoRua6;
+    private javax.swing.JLabel CampoRua7;
+    private javax.swing.JLabel CampoSenha;
+    private javax.swing.JLabel CampoUsuario;
+    private javax.swing.JPanel Faturas;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuSuperior;
+    private javax.swing.JPanel MeuCadastro;
     private javax.swing.JPanel Principal;
     private javax.swing.JButton btnFaturas;
     private javax.swing.JButton btnMeuCadastro;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jtfBairro;
+    private javax.swing.JTextField jtfCEP;
+    private javax.swing.JTextField jtfCidade;
+    private javax.swing.JTextField jtfNome;
+    private javax.swing.JTextField jtfNum;
+    private javax.swing.JTextField jtfRua;
+    private javax.swing.JTextField jtfSenha;
+    private javax.swing.JTextField jtfUF;
+    private javax.swing.JTextField jtfUsuario;
     // End of variables declaration//GEN-END:variables
 }
