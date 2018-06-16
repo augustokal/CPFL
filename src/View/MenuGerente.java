@@ -32,7 +32,40 @@ public class MenuGerente extends javax.swing.JFrame {
         Inicio = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        Funcionários = new javax.swing.JPanel();
+        Funcionarios = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jtfNum = new javax.swing.JTextField();
+        jtfNome = new javax.swing.JTextField();
+        jtfUF = new javax.swing.JTextField();
+        jtfRua = new javax.swing.JTextField();
+        jtfCEP = new javax.swing.JTextField();
+        jtfBairro = new javax.swing.JTextField();
+        jtfCidade = new javax.swing.JTextField();
+        jtfUsuario = new javax.swing.JTextField();
+        jtfSenha = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        CampoCidade = new javax.swing.JLabel();
+        CampoSenha = new javax.swing.JLabel();
+        CampoRua3 = new javax.swing.JLabel();
+        CampoRua5 = new javax.swing.JLabel();
+        CampoCEP1 = new javax.swing.JLabel();
+        CampoBairro1 = new javax.swing.JLabel();
+        CampoUsuario = new javax.swing.JLabel();
+        CampoRua6 = new javax.swing.JLabel();
+        CampoRua7 = new javax.swing.JLabel();
         Tarifas = new javax.swing.JPanel();
         MeuCadastro = new javax.swing.JPanel();
         MenuSuperior = new javax.swing.JPanel();
@@ -58,7 +91,7 @@ public class MenuGerente extends javax.swing.JFrame {
         Inicio.setLayout(InicioLayout);
         InicioLayout.setHorizontalGroup(
             InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1379, Short.MAX_VALUE)
+            .addGap(0, 1389, Short.MAX_VALUE)
             .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(InicioLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -87,24 +120,192 @@ public class MenuGerente extends javax.swing.JFrame {
 
         Principal.add(Inicio, "card4");
 
-        javax.swing.GroupLayout FuncionáriosLayout = new javax.swing.GroupLayout(Funcionários);
-        Funcionários.setLayout(FuncionáriosLayout);
-        FuncionáriosLayout.setHorizontalGroup(
-            FuncionáriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1379, Short.MAX_VALUE)
-        );
-        FuncionáriosLayout.setVerticalGroup(
-            FuncionáriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
-        );
+        Funcionarios.setBackground(new java.awt.Color(255, 255, 255));
+        Funcionarios.setLayout(null);
 
-        Principal.add(Funcionários, "card3");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel4.setText("UF:");
+        Funcionarios.add(jLabel4);
+        jLabel4.setBounds(350, 300, 30, 20);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel5.setText("Nome:");
+        Funcionarios.add(jLabel5);
+        jLabel5.setBounds(30, 28, 38, 15);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel6.setText("Rua:");
+        Funcionarios.add(jLabel6);
+        jLabel6.setBounds(30, 95, 38, 15);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel7.setText("Nº:");
+        Funcionarios.add(jLabel7);
+        jLabel7.setBounds(345, 95, 38, 15);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel8.setText("CEP:");
+        Funcionarios.add(jLabel8);
+        jLabel8.setBounds(30, 150, 38, 20);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel9.setText("Bairro:");
+        Funcionarios.add(jLabel9);
+        jLabel9.setBounds(30, 240, 60, 15);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel10.setText("Cidade:");
+        Funcionarios.add(jLabel10);
+        jLabel10.setBounds(30, 300, 60, 15);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel11.setText("Usuário:");
+        Funcionarios.add(jLabel11);
+        jLabel11.setBounds(30, 360, 60, 15);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel12.setText("Senha:");
+        Funcionarios.add(jLabel12);
+        jLabel12.setBounds(30, 420, 60, 15);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        Funcionarios.add(jScrollPane1);
+        jScrollPane1.setBounds(440, 30, 910, 530);
+
+        jtfNum.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNum.setBorder(null);
+        Funcionarios.add(jtfNum);
+        jtfNum.setBounds(350, 120, 50, 20);
+
+        jtfNome.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNome.setBorder(null);
+        Funcionarios.add(jtfNome);
+        jtfNome.setBounds(30, 50, 360, 20);
+
+        jtfUF.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUF.setBorder(null);
+        Funcionarios.add(jtfUF);
+        jtfUF.setBounds(350, 320, 50, 20);
+
+        jtfRua.setBackground(new java.awt.Color(235, 235, 235));
+        jtfRua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfRua.setBorder(null);
+        Funcionarios.add(jtfRua);
+        jtfRua.setBounds(35, 118, 240, 20);
+
+        jtfCEP.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCEP.setBorder(null);
+        Funcionarios.add(jtfCEP);
+        jtfCEP.setBounds(40, 180, 360, 20);
+
+        jtfBairro.setBackground(new java.awt.Color(235, 235, 235));
+        jtfBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfBairro.setBorder(null);
+        Funcionarios.add(jtfBairro);
+        jtfBairro.setBounds(30, 260, 360, 20);
+
+        jtfCidade.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCidade.setBorder(null);
+        Funcionarios.add(jtfCidade);
+        jtfCidade.setBounds(30, 320, 250, 20);
+
+        jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUsuario.setBorder(null);
+        Funcionarios.add(jtfUsuario);
+        jtfUsuario.setBounds(30, 380, 240, 20);
+
+        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
+        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfSenha.setBorder(null);
+        Funcionarios.add(jtfSenha);
+        jtfSenha.setBounds(30, 440, 240, 20);
+
+        jButton1.setText("jButton1");
+        Funcionarios.add(jButton1);
+        jButton1.setBounds(270, 530, 73, 30);
+
+        jButton2.setText("jButton1");
+        Funcionarios.add(jButton2);
+        jButton2.setBounds(30, 530, 73, 30);
+
+        jButton3.setText("jButton1");
+        Funcionarios.add(jButton3);
+        jButton3.setBounds(110, 530, 73, 30);
+
+        jButton4.setText("jButton1");
+        Funcionarios.add(jButton4);
+        jButton4.setBounds(190, 530, 73, 30);
+
+        CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Funcionarios.add(CampoCidade);
+        CampoCidade.setBounds(20, 310, 280, 40);
+
+        CampoSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoSenha);
+        CampoSenha.setBounds(20, 430, 390, 50);
+
+        CampoRua3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Funcionarios.add(CampoRua3);
+        CampoRua3.setBounds(20, 110, 300, 40);
+
+        CampoRua5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
+        Funcionarios.add(CampoRua5);
+        CampoRua5.setBounds(340, 310, 80, 50);
+
+        CampoCEP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoCEP1);
+        CampoCEP1.setBounds(30, 170, 390, 50);
+
+        CampoBairro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoBairro1);
+        CampoBairro1.setBounds(20, 250, 390, 50);
+
+        CampoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoUsuario);
+        CampoUsuario.setBounds(20, 370, 390, 50);
+
+        CampoRua6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoRua6);
+        CampoRua6.setBounds(20, 40, 390, 50);
+
+        CampoRua7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
+        Funcionarios.add(CampoRua7);
+        CampoRua7.setBounds(340, 110, 80, 50);
+
+        Principal.add(Funcionarios, "card6");
 
         javax.swing.GroupLayout TarifasLayout = new javax.swing.GroupLayout(Tarifas);
         Tarifas.setLayout(TarifasLayout);
         TarifasLayout.setHorizontalGroup(
             TarifasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1379, Short.MAX_VALUE)
+            .addGap(0, 1389, Short.MAX_VALUE)
         );
         TarifasLayout.setVerticalGroup(
             TarifasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +318,7 @@ public class MenuGerente extends javax.swing.JFrame {
         MeuCadastro.setLayout(MeuCadastroLayout);
         MeuCadastroLayout.setHorizontalGroup(
             MeuCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1379, Short.MAX_VALUE)
+            .addGap(0, 1389, Short.MAX_VALUE)
         );
         MeuCadastroLayout.setVerticalGroup(
             MeuCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +448,16 @@ public class MenuGerente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Funcionários;
+    private javax.swing.JLabel CampoBairro1;
+    private javax.swing.JLabel CampoCEP1;
+    private javax.swing.JLabel CampoCidade;
+    private javax.swing.JLabel CampoRua3;
+    private javax.swing.JLabel CampoRua5;
+    private javax.swing.JLabel CampoRua6;
+    private javax.swing.JLabel CampoRua7;
+    private javax.swing.JLabel CampoSenha;
+    private javax.swing.JLabel CampoUsuario;
+    private javax.swing.JPanel Funcionarios;
     private javax.swing.JPanel Inicio;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuSuperior;
@@ -258,8 +468,32 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMeuCadastro;
     private javax.swing.JButton btnTarifas;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jtfBairro;
+    private javax.swing.JTextField jtfCEP;
+    private javax.swing.JTextField jtfCidade;
+    private javax.swing.JTextField jtfNome;
+    private javax.swing.JTextField jtfNum;
+    private javax.swing.JTextField jtfRua;
+    private javax.swing.JTextField jtfSenha;
+    private javax.swing.JTextField jtfUF;
+    private javax.swing.JTextField jtfUsuario;
     // End of variables declaration//GEN-END:variables
 }
