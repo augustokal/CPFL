@@ -19,7 +19,7 @@ public class Endereco {
     public void setId_end(int id_end){
         this.id_end = id_end;
     }
-    public int getId_ende(){
+    public int getId_end(){
         return this.id_end;
     }
 
