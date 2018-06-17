@@ -8,11 +8,19 @@ package Classes;
 import java.util.Date;
 
 public class Faturas {
-    
+    private int id_fatura;
     private Date dt_fatura;
     private Date dt_venc;
     private int id_tarifa;
     private int id_usuario;
+    
+    
+    public void setId_fatura(int id_fatura){
+        this.id_fatura = id_fatura;
+    }
+    public int getId_fatura(){
+        return this.id_fatura;
+    }
     
     public void setDt_fatura(Date dt_fatura){
         this.dt_fatura = dt_fatura;
