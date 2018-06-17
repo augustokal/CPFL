@@ -16,7 +16,14 @@ public class Usuario {
     private String senha;
     private String usuario;
     private String tipo;
+    private int id_usuario;
     
+    public void setId_usuario(int id_usuario){
+        this.id_usuario = id_usuario;
+    }
+    public int getId_usuario(){
+        return this.id_usuario;
+    }
     
     public void setNome(String nome){
         this.nome = nome;
