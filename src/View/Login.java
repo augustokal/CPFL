@@ -1,10 +1,47 @@
 package View;
 
+import Classes.Usuario;
+import ConexaoBD.Conexao;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.PreparedStatement;
+
 public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    Usuario usuario = new Usuario();
+    
+    private boolean checarUsuario() {  
+        try (Connection con = Conexao.conectar()) {
+        String user = txtUsuario.getText();
+        String senha = txtSenha.getText();
+        
+        String sql = "SELECT * FROM USUARIO"
+        + " where usuario = ? and senha = ?";
+        
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setString(1, user);
+        stmt.setString(2, senha);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            usuario.setId_usuario(rs.getInt("id_usuario"));
+            usuario.setNome(rs.getString("nome"));  
+            usuario.setTipo(rs.getString("tipo"));
+            return true;
+        }
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -146,11 +183,30 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        MenuCliente menuCli = new MenuCliente();
-        menuCli.setVisible(true);        
+//        MenuCliente menuCli = new MenuCliente();
+//        menuCli.setVisible(true);        
+//        
+//        MenuGerente menuGerente = new MenuGerente();
+//        menuGerente.setVisible(true);
+        try {
+            String user, senha;
+
+            Connection con;
+            Conexao conecta = new Conexao();
+            con = conecta.conectar();
+            ResultSet rs;
         
-        MenuGerente menuGerente = new MenuGerente();
-        menuGerente.setVisible(true);
+            user = txtUsuario.getText();
+            senha = String.valueOf(txtSenha.getPassword());
+            
+            String sql = "SELECT * FROM usuario WHERE usuario = '" + user + "' AND  senha = '" + senha + "'";
+            
+        
+        } catch (Exception ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
