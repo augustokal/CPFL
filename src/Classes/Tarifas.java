@@ -11,11 +11,19 @@ package Classes;
  */
 public class Tarifas {
     
+    private int id_tarifa;
     private double val_kw;
     private double val_imposto;
     private String cor;
     private double porcentagem;
     
+    
+    public void setId_tarifa(int id_tarifa){
+        this.id_tarifa = id_tarifa;
+    }
+    public int getId_tarifa(){
+        return this.id_tarifa;
+    }
     
     public void setVal_kw(double val_kw){
         this.val_kw = val_kw;
