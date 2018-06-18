@@ -31,8 +31,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         Superior = new javax.swing.JPanel();
         btnFechar = new javax.swing.JButton();
         Principal = new javax.swing.JPanel();
-        btnSalvar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         jtfCidade = new javax.swing.JTextField();
         jtfBairro = new javax.swing.JTextField();
         jtfCEP = new javax.swing.JTextField();
@@ -40,8 +38,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         jtfUF = new javax.swing.JTextField();
         jtfNome = new javax.swing.JTextField();
         jtfNum = new javax.swing.JTextField();
-        jtfSenha = new javax.swing.JTextField();
         jtfUsuario = new javax.swing.JTextField();
+        jtfSenha = new javax.swing.JPasswordField();
         CampoSenha = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         CampoUsuario = new javax.swing.JLabel();
@@ -62,6 +60,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        btnSalvar1 = new javax.swing.JButton();
+        btnCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -96,28 +96,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         Principal.setBackground(new java.awt.Color(255, 255, 255));
         Principal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Principal.setLayout(null);
-
-        btnSalvar.setBackground(new java.awt.Color(0, 152, 209));
-        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar.setText("Salvar");
-        btnSalvar.setBorder(null);
-        btnSalvar.setBorderPainted(false);
-        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar.setFocusPainted(false);
-        Principal.add(btnSalvar);
-        btnSalvar.setBounds(140, 500, 90, 30);
-
-        btnCancelar.setBackground(new java.awt.Color(0, 152, 209));
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(null);
-        btnCancelar.setBorderPainted(false);
-        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar.setFocusPainted(false);
-        Principal.add(btnCancelar);
-        btnCancelar.setBounds(310, 500, 90, 30);
 
         jtfCidade.setBackground(new java.awt.Color(235, 235, 235));
         jtfCidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -161,17 +139,17 @@ public class CadastroCliente extends javax.swing.JFrame {
         Principal.add(jtfNum);
         jtfNum.setBounds(380, 135, 50, 20);
 
-        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
-        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfSenha.setBorder(null);
-        Principal.add(jtfSenha);
-        jtfSenha.setBounds(70, 450, 370, 20);
-
         jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
         jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtfUsuario.setBorder(null);
         Principal.add(jtfUsuario);
         jtfUsuario.setBounds(70, 390, 370, 20);
+
+        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
+        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfSenha.setBorder(null);
+        Principal.add(jtfSenha);
+        jtfSenha.setBounds(70, 450, 370, 20);
 
         CampoSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         Principal.add(CampoSenha);
@@ -275,6 +253,30 @@ public class CadastroCliente extends javax.swing.JFrame {
         Principal.add(jLabel10);
         jLabel10.setBounds(380, 110, 38, 15);
 
+        btnSalvar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalvar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
+        btnSalvar1.setText("Salvar");
+        btnSalvar1.setBorder(null);
+        btnSalvar1.setBorderPainted(false);
+        btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar1.setFocusPainted(false);
+        Principal.add(btnSalvar1);
+        btnSalvar1.setBounds(120, 500, 110, 40);
+
+        btnCancelar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
+        btnCancelar1.setText("Cancelar");
+        btnCancelar1.setBorder(null);
+        btnCancelar1.setBorderPainted(false);
+        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar1.setFocusPainted(false);
+        Principal.add(btnCancelar1);
+        btnCancelar1.setBounds(290, 500, 110, 40);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -310,9 +312,9 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel CampoUsuario;
     private javax.swing.JPanel Principal;
     private javax.swing.JPanel Superior;
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnFechar;
-    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvar1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -330,7 +332,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jtfNome;
     private javax.swing.JTextField jtfNum;
     private javax.swing.JTextField jtfRua;
-    private javax.swing.JTextField jtfSenha;
+    private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JTextField jtfUF;
     private javax.swing.JTextField jtfUsuario;
     // End of variables declaration//GEN-END:variables

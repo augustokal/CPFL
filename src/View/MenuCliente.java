@@ -30,6 +30,11 @@ public class MenuCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        MenuSuperior = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        Menu = new javax.swing.JPanel();
+        btnMeuCadastro = new javax.swing.JButton();
+        btnFaturas = new javax.swing.JButton();
         Principal = new javax.swing.JPanel();
         Faturas = new javax.swing.JPanel();
         MeuCadastro = new javax.swing.JPanel();
@@ -47,6 +52,8 @@ public class MenuCliente extends javax.swing.JFrame {
         jtfCEP = new javax.swing.JTextField();
         jtfBairro = new javax.swing.JTextField();
         jtfCidade = new javax.swing.JTextField();
+        jtfUsuario = new javax.swing.JTextField();
+        jtfSenha = new javax.swing.JPasswordField();
         CampoCidade = new javax.swing.JLabel();
         CampoRua3 = new javax.swing.JLabel();
         CampoRua5 = new javax.swing.JLabel();
@@ -56,21 +63,72 @@ public class MenuCliente extends javax.swing.JFrame {
         CampoRua7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         CampoUsuario = new javax.swing.JLabel();
-        jtfUsuario = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jtfSenha = new javax.swing.JTextField();
         CampoSenha = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
-        MenuSuperior = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        Menu = new javax.swing.JPanel();
-        btnMeuCadastro = new javax.swing.JButton();
-        btnFaturas = new javax.swing.JButton();
+        btnSalvar1 = new javax.swing.JButton();
+        btnEditar1 = new javax.swing.JButton();
+        btnCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo CPFL.png"))); // NOI18N
+
+        Menu.setBackground(new java.awt.Color(0, 152, 209));
+        Menu.setLayout(null);
+
+        btnMeuCadastro.setBackground(new java.awt.Color(0, 152, 209));
+        btnMeuCadastro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnMeuCadastro.setForeground(new java.awt.Color(255, 255, 255));
+        btnMeuCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconsUsuario.png"))); // NOI18N
+        btnMeuCadastro.setText("Meu Cadastro");
+        btnMeuCadastro.setBorder(null);
+        btnMeuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMeuCadastro.setFocusPainted(false);
+        btnMeuCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMeuCadastroActionPerformed(evt);
+            }
+        });
+        Menu.add(btnMeuCadastro);
+        btnMeuCadastro.setBounds(180, 0, 190, 40);
+
+        btnFaturas.setBackground(new java.awt.Color(0, 152, 209));
+        btnFaturas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnFaturas.setForeground(new java.awt.Color(255, 255, 255));
+        btnFaturas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconFaturas.png"))); // NOI18N
+        btnFaturas.setText("Minhas Faturas");
+        btnFaturas.setBorder(null);
+        btnFaturas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFaturas.setFocusPainted(false);
+        btnFaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFaturasActionPerformed(evt);
+            }
+        });
+        Menu.add(btnFaturas);
+        btnFaturas.setBounds(0, 0, 180, 40);
+
+        javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
+        MenuSuperior.setLayout(MenuSuperiorLayout);
+        MenuSuperiorLayout.setHorizontalGroup(
+            MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuSuperiorLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        MenuSuperiorLayout.setVerticalGroup(
+            MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MenuSuperiorLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         Principal.setBackground(new java.awt.Color(255, 255, 255));
         Principal.setLayout(new java.awt.CardLayout());
@@ -178,6 +236,18 @@ public class MenuCliente extends javax.swing.JFrame {
         MeuCadastro.add(jtfCidade);
         jtfCidade.setBounds(440, 315, 270, 20);
 
+        jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUsuario.setBorder(null);
+        MeuCadastro.add(jtfUsuario);
+        jtfUsuario.setBounds(440, 380, 370, 20);
+
+        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
+        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfSenha.setBorder(null);
+        MeuCadastro.add(jtfSenha);
+        jtfSenha.setBounds(450, 440, 350, 20);
+
         CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoCidade);
         CampoCidade.setBounds(430, 310, 300, 40);
@@ -216,118 +286,53 @@ public class MenuCliente extends javax.swing.JFrame {
         MeuCadastro.add(CampoUsuario);
         CampoUsuario.setBounds(430, 370, 390, 50);
 
-        jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
-        jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfUsuario.setBorder(null);
-        MeuCadastro.add(jtfUsuario);
-        jtfUsuario.setBounds(440, 380, 240, 20);
-
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 152, 209));
         jLabel12.setText("Senha:");
         MeuCadastro.add(jLabel12);
         jLabel12.setBounds(440, 420, 60, 15);
 
-        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
-        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfSenha.setBorder(null);
-        MeuCadastro.add(jtfSenha);
-        jtfSenha.setBounds(440, 440, 240, 20);
-
         CampoSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         MeuCadastro.add(CampoSenha);
         CampoSenha.setBounds(430, 430, 390, 50);
 
-        btnCancelar.setBackground(new java.awt.Color(0, 152, 209));
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(null);
-        btnCancelar.setBorderPainted(false);
-        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar.setFocusPainted(false);
-        MeuCadastro.add(btnCancelar);
-        btnCancelar.setBounds(690, 520, 90, 30);
+        btnSalvar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalvar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
+        btnSalvar1.setText("Salvar");
+        btnSalvar1.setBorder(null);
+        btnSalvar1.setBorderPainted(false);
+        btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar1.setFocusPainted(false);
+        MeuCadastro.add(btnSalvar1);
+        btnSalvar1.setBounds(450, 510, 110, 40);
 
-        btnEditar.setBackground(new java.awt.Color(0, 152, 209));
-        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar.setText("Editar");
-        btnEditar.setBorder(null);
-        btnEditar.setBorderPainted(false);
-        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar.setFocusPainted(false);
-        MeuCadastro.add(btnEditar);
-        btnEditar.setBounds(590, 520, 90, 30);
+        btnEditar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
+        btnEditar1.setText("Editar");
+        btnEditar1.setBorder(null);
+        btnEditar1.setBorderPainted(false);
+        btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar1.setFocusPainted(false);
+        MeuCadastro.add(btnEditar1);
+        btnEditar1.setBounds(570, 510, 110, 40);
 
-        btnSalvar.setBackground(new java.awt.Color(0, 152, 209));
-        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar.setText("Salvar");
-        btnSalvar.setBorder(null);
-        btnSalvar.setBorderPainted(false);
-        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar.setFocusPainted(false);
-        MeuCadastro.add(btnSalvar);
-        btnSalvar.setBounds(490, 520, 90, 30);
+        btnCancelar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
+        btnCancelar1.setText("Cancelar");
+        btnCancelar1.setBorder(null);
+        btnCancelar1.setBorderPainted(false);
+        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar1.setFocusPainted(false);
+        MeuCadastro.add(btnCancelar1);
+        btnCancelar1.setBounds(690, 510, 110, 40);
 
         Principal.add(MeuCadastro, "meuCadastro");
-
-        MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo CPFL.png"))); // NOI18N
-
-        Menu.setBackground(new java.awt.Color(0, 152, 209));
-        Menu.setLayout(null);
-
-        btnMeuCadastro.setBackground(new java.awt.Color(0, 152, 209));
-        btnMeuCadastro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnMeuCadastro.setForeground(new java.awt.Color(255, 255, 255));
-        btnMeuCadastro.setText("Meu Cadastro");
-        btnMeuCadastro.setBorder(null);
-        btnMeuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMeuCadastro.setFocusPainted(false);
-        btnMeuCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMeuCadastroActionPerformed(evt);
-            }
-        });
-        Menu.add(btnMeuCadastro);
-        btnMeuCadastro.setBounds(180, 0, 190, 40);
-
-        btnFaturas.setBackground(new java.awt.Color(0, 152, 209));
-        btnFaturas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnFaturas.setForeground(new java.awt.Color(255, 255, 255));
-        btnFaturas.setText("Minhas Faturas");
-        btnFaturas.setBorder(null);
-        btnFaturas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFaturas.setFocusPainted(false);
-        btnFaturas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFaturasActionPerformed(evt);
-            }
-        });
-        Menu.add(btnFaturas);
-        btnFaturas.setBounds(0, 0, 180, 40);
-
-        javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
-        MenuSuperior.setLayout(MenuSuperiorLayout);
-        MenuSuperiorLayout.setHorizontalGroup(
-            MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuSuperiorLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        MenuSuperiorLayout.setVerticalGroup(
-            MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MenuSuperiorLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -375,11 +380,11 @@ public class MenuCliente extends javax.swing.JFrame {
     private javax.swing.JPanel MenuSuperior;
     private javax.swing.JPanel MeuCadastro;
     private javax.swing.JPanel Principal;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnCancelar1;
+    private javax.swing.JButton btnEditar1;
     private javax.swing.JButton btnFaturas;
     private javax.swing.JButton btnMeuCadastro;
-    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -396,7 +401,7 @@ public class MenuCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jtfNome;
     private javax.swing.JTextField jtfNum;
     private javax.swing.JTextField jtfRua;
-    private javax.swing.JTextField jtfSenha;
+    private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JTextField jtfUF;
     private javax.swing.JTextField jtfUsuario;
     // End of variables declaration//GEN-END:variables
