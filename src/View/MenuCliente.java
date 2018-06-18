@@ -35,6 +35,7 @@ public class MenuCliente extends javax.swing.JFrame {
         Menu = new javax.swing.JPanel();
         btnMeuCadastro = new javax.swing.JButton();
         btnFaturas = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         Principal = new javax.swing.JPanel();
         Faturas = new javax.swing.JPanel();
         MeuCadastro = new javax.swing.JPanel();
@@ -110,6 +111,23 @@ public class MenuCliente extends javax.swing.JFrame {
         });
         Menu.add(btnFaturas);
         btnFaturas.setBounds(0, 0, 180, 40);
+
+        btnSair.setBackground(new java.awt.Color(0, 152, 209));
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSair.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setBorder(null);
+        btnSair.setBorderPainted(false);
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSair.setFocusPainted(false);
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        Menu.add(btnSair);
+        btnSair.setBounds(1290, 0, 100, 40);
 
         javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
         MenuSuperior.setLayout(MenuSuperiorLayout);
@@ -304,9 +322,10 @@ public class MenuCliente extends javax.swing.JFrame {
         btnSalvar1.setBorder(null);
         btnSalvar1.setBorderPainted(false);
         btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar1.setEnabled(false);
         btnSalvar1.setFocusPainted(false);
         MeuCadastro.add(btnSalvar1);
-        btnSalvar1.setBounds(450, 510, 110, 40);
+        btnSalvar1.setBounds(570, 510, 110, 40);
 
         btnEditar1.setBackground(new java.awt.Color(0, 152, 209));
         btnEditar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -318,7 +337,7 @@ public class MenuCliente extends javax.swing.JFrame {
         btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar1.setFocusPainted(false);
         MeuCadastro.add(btnEditar1);
-        btnEditar1.setBounds(570, 510, 110, 40);
+        btnEditar1.setBounds(450, 510, 110, 40);
 
         btnCancelar1.setBackground(new java.awt.Color(0, 152, 209));
         btnCancelar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -328,6 +347,7 @@ public class MenuCliente extends javax.swing.JFrame {
         btnCancelar1.setBorder(null);
         btnCancelar1.setBorderPainted(false);
         btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar1.setEnabled(false);
         btnCancelar1.setFocusPainted(false);
         MeuCadastro.add(btnCancelar1);
         btnCancelar1.setBounds(690, 510, 110, 40);
@@ -360,6 +380,10 @@ public class MenuCliente extends javax.swing.JFrame {
         MudarTelaMenu("meuCadastro");
     }//GEN-LAST:event_btnMeuCadastroActionPerformed
 
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
+
     private void MudarTelaMenu(String tela) {
         CardLayout cl = (CardLayout) Principal.getLayout();
         cl.show(Principal, tela);
@@ -384,6 +408,7 @@ public class MenuCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar1;
     private javax.swing.JButton btnFaturas;
     private javax.swing.JButton btnMeuCadastro;
+    private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

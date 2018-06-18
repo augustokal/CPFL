@@ -30,21 +30,26 @@ public class MenuMedidor extends javax.swing.JFrame {
         MenuSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
-        btnSair = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
+        btnInicio1 = new javax.swing.JButton();
         Principal = new javax.swing.JPanel();
         Inicio = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Tarifas = new javax.swing.JPanel();
-        jtfRua1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        CampoBandeira = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        jtfCEP = new javax.swing.JTextField();
+        jtfNumero = new javax.swing.JTextField();
+        jtfKw = new javax.swing.JTextField();
+        CampoCEP = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        CampoBandeira2 = new javax.swing.JLabel();
+        CampoKwh = new javax.swing.JLabel();
+        CampoBandeira1 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        btnSalvar1 = new javax.swing.JButton();
+        btnEditar1 = new javax.swing.JButton();
+        btnCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,22 +59,6 @@ public class MenuMedidor extends javax.swing.JFrame {
 
         Menu.setBackground(new java.awt.Color(0, 152, 209));
         Menu.setLayout(null);
-
-        btnSair.setBackground(new java.awt.Color(0, 152, 209));
-        btnSair.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        btnSair.setForeground(new java.awt.Color(255, 255, 255));
-        btnSair.setText("Sair");
-        btnSair.setBorder(null);
-        btnSair.setBorderPainted(false);
-        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSair.setFocusPainted(false);
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
-        Menu.add(btnSair);
-        btnSair.setBounds(1280, 0, 100, 40);
 
         btnInicio.setBackground(new java.awt.Color(0, 152, 209));
         btnInicio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -87,6 +76,39 @@ public class MenuMedidor extends javax.swing.JFrame {
         });
         Menu.add(btnInicio);
         btnInicio.setBounds(0, 0, 180, 40);
+
+        btnSair.setBackground(new java.awt.Color(0, 152, 209));
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSair.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setBorder(null);
+        btnSair.setBorderPainted(false);
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSair.setFocusPainted(false);
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        Menu.add(btnSair);
+        btnSair.setBounds(1280, 0, 100, 40);
+
+        btnInicio1.setBackground(new java.awt.Color(0, 152, 209));
+        btnInicio1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnInicio1.setForeground(new java.awt.Color(255, 255, 255));
+        btnInicio1.setText("Coleta");
+        btnInicio1.setBorder(null);
+        btnInicio1.setBorderPainted(false);
+        btnInicio1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInicio1.setFocusPainted(false);
+        btnInicio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicio1ActionPerformed(evt);
+            }
+        });
+        Menu.add(btnInicio1);
+        btnInicio1.setBounds(180, 0, 180, 40);
 
         javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
         MenuSuperior.setLayout(MenuSuperiorLayout);
@@ -148,51 +170,93 @@ public class MenuMedidor extends javax.swing.JFrame {
         Tarifas.setBackground(new java.awt.Color(255, 255, 255));
         Tarifas.setLayout(null);
 
-        jtfRua1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfRua1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfRua1.setBorder(null);
-        Tarifas.add(jtfRua1);
-        jtfRua1.setBounds(320, 290, 270, 20);
+        jtfCEP.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCEP.setBorder(null);
+        Tarifas.add(jtfCEP);
+        jtfCEP.setBounds(320, 100, 270, 20);
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        Tarifas.add(jComboBox1);
-        jComboBox1.setBounds(320, 192, 290, 30);
+        jtfNumero.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNumero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNumero.setBorder(null);
+        Tarifas.add(jtfNumero);
+        jtfNumero.setBounds(640, 100, 50, 20);
 
-        CampoBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Tarifas.add(CampoBandeira);
-        CampoBandeira.setBounds(310, 280, 300, 40);
+        jtfKw.setBackground(new java.awt.Color(235, 235, 235));
+        jtfKw.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfKw.setBorder(null);
+        Tarifas.add(jtfKw);
+        jtfKw.setBounds(320, 200, 270, 20);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel13.setText("Valor kWh:");
-        Tarifas.add(jLabel13);
-        jLabel13.setBounds(640, 260, 100, 20);
+        CampoCEP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Tarifas.add(CampoCEP);
+        CampoCEP.setBounds(310, 90, 300, 40);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel14.setText("Bandeira: ");
+        jLabel14.setText("CEP:");
         Tarifas.add(jLabel14);
-        jLabel14.setBounds(320, 170, 100, 20);
+        jLabel14.setBounds(320, 70, 100, 20);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel15.setText("Valor Imposto:");
+        jLabel15.setText("KW gastos:");
         Tarifas.add(jLabel15);
-        jLabel15.setBounds(640, 160, 100, 20);
+        jLabel15.setBounds(320, 160, 100, 20);
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel16.setText("Valor kWh:");
-        Tarifas.add(jLabel16);
-        jLabel16.setBounds(320, 260, 100, 20);
+        CampoKwh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Tarifas.add(CampoKwh);
+        CampoKwh.setBounds(310, 190, 300, 40);
 
-        CampoBandeira2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Tarifas.add(CampoBandeira2);
-        CampoBandeira2.setBounds(640, 190, 300, 40);
+        CampoBandeira1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
+        Tarifas.add(CampoBandeira1);
+        CampoBandeira1.setBounds(630, 90, 80, 40);
 
-        Principal.add(Tarifas, "tarifas");
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel26.setText("Nº:");
+        Tarifas.add(jLabel26);
+        jLabel26.setBounds(630, 70, 100, 20);
+
+        btnSalvar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalvar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
+        btnSalvar1.setText("Salvar");
+        btnSalvar1.setBorder(null);
+        btnSalvar1.setBorderPainted(false);
+        btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar1.setEnabled(false);
+        btnSalvar1.setFocusPainted(false);
+        Tarifas.add(btnSalvar1);
+        btnSalvar1.setBounds(440, 290, 110, 40);
+
+        btnEditar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
+        btnEditar1.setText("Editar");
+        btnEditar1.setBorder(null);
+        btnEditar1.setBorderPainted(false);
+        btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar1.setFocusPainted(false);
+        Tarifas.add(btnEditar1);
+        btnEditar1.setBounds(320, 290, 110, 40);
+
+        btnCancelar1.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
+        btnCancelar1.setText("Cancelar");
+        btnCancelar1.setBorder(null);
+        btnCancelar1.setBorderPainted(false);
+        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar1.setEnabled(false);
+        btnCancelar1.setFocusPainted(false);
+        Tarifas.add(btnCancelar1);
+        btnCancelar1.setBounds(560, 290, 110, 40);
+
+        Principal.add(Tarifas, "coleta");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,33 +276,42 @@ public class MenuMedidor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnSairActionPerformed
-
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInicio1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CampoBandeira;
-    private javax.swing.JLabel CampoBandeira2;
+    private javax.swing.JLabel CampoBandeira1;
+    private javax.swing.JLabel CampoCEP;
+    private javax.swing.JLabel CampoKwh;
     private javax.swing.JPanel Inicio;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuSuperior;
     private javax.swing.JPanel Principal;
     private javax.swing.JPanel Tarifas;
+    private javax.swing.JButton btnCancelar1;
+    private javax.swing.JButton btnEditar1;
     private javax.swing.JButton btnInicio;
+    private javax.swing.JButton btnInicio1;
     private javax.swing.JButton btnSair;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnSalvar1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jtfRua1;
+    private javax.swing.JTextField jtfCEP;
+    private javax.swing.JTextField jtfKw;
+    private javax.swing.JTextField jtfNumero;
     // End of variables declaration//GEN-END:variables
 }

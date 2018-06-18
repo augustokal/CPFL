@@ -34,7 +34,6 @@ create table faturas (
     dt_venc date,
     id_tarifa int,
     id_usuario int,
-    
 FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
 FOREIGN KEY (id_tarifa) REFERENCES tarifas (id_tarifa)    
 );
