@@ -72,7 +72,6 @@ public class Login extends javax.swing.JFrame {
 
         btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Fechar.png"))); // NOI18N
         btnFechar.setToolTipText("");
-        btnFechar.setBorder(null);
         btnFechar.setBorderPainted(false);
         btnFechar.setContentAreaFilled(false);
         btnFechar.setFocusPainted(false);
@@ -82,7 +81,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         pnlMenuSuperior.add(btnFechar);
-        btnFechar.setBounds(365, 5, 26, 26);
+        btnFechar.setBounds(360, 0, 40, 34);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -140,14 +139,21 @@ public class Login extends javax.swing.JFrame {
         btnCadastrar.setContentAreaFilled(false);
         btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadastrar.setFocusPainted(false);
+        btnCadastrar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnCadastrar);
-        btnCadastrar.setBounds(250, 370, 80, 15);
+        btnCadastrar.setBounds(250, 370, 90, 15);
 
         btnEntrar.setBackground(new java.awt.Color(0, 152, 209));
         btnEntrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("Entrar");
         btnEntrar.setBorder(null);
+        btnEntrar.setBorderPainted(false);
         btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntrar.setFocusPainted(false);
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +225,12 @@ public class Login extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        CadastroCliente cadastrarCli = new CadastroCliente();
+        cadastrarCli.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments

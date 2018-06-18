@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author thais
@@ -45,10 +47,6 @@ public class MenuCliente extends javax.swing.JFrame {
         jtfCEP = new javax.swing.JTextField();
         jtfBairro = new javax.swing.JTextField();
         jtfCidade = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         CampoCidade = new javax.swing.JLabel();
         CampoRua3 = new javax.swing.JLabel();
         CampoRua5 = new javax.swing.JLabel();
@@ -62,6 +60,9 @@ public class MenuCliente extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jtfSenha = new javax.swing.JTextField();
         CampoSenha = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         MenuSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
@@ -76,6 +77,20 @@ public class MenuCliente extends javax.swing.JFrame {
 
         Faturas.setBackground(new java.awt.Color(255, 255, 255));
 
+        javax.swing.GroupLayout FaturasLayout = new javax.swing.GroupLayout(Faturas);
+        Faturas.setLayout(FaturasLayout);
+        FaturasLayout.setHorizontalGroup(
+            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1389, Short.MAX_VALUE)
+        );
+        FaturasLayout.setVerticalGroup(
+            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 605, Short.MAX_VALUE)
+        );
+
+        Principal.add(Faturas, "Faturas");
+        Faturas.getAccessibleContext().setAccessibleName("");
+
         MeuCadastro.setBackground(new java.awt.Color(255, 255, 255));
         MeuCadastro.setLayout(null);
 
@@ -83,7 +98,7 @@ public class MenuCliente extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 152, 209));
         jLabel2.setText("UF:");
         MeuCadastro.add(jLabel2);
-        jLabel2.setBounds(760, 300, 30, 20);
+        jLabel2.setBounds(760, 290, 30, 20);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 152, 209));
@@ -163,22 +178,6 @@ public class MenuCliente extends javax.swing.JFrame {
         MeuCadastro.add(jtfCidade);
         jtfCidade.setBounds(440, 315, 270, 20);
 
-        jButton1.setText("jButton1");
-        MeuCadastro.add(jButton1);
-        jButton1.setBounds(740, 520, 73, 30);
-
-        jButton2.setText("jButton1");
-        MeuCadastro.add(jButton2);
-        jButton2.setBounds(500, 520, 73, 30);
-
-        jButton3.setText("jButton1");
-        MeuCadastro.add(jButton3);
-        jButton3.setBounds(580, 520, 73, 30);
-
-        jButton4.setText("jButton1");
-        MeuCadastro.add(jButton4);
-        jButton4.setBounds(660, 520, 73, 30);
-
         CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoCidade);
         CampoCidade.setBounds(430, 310, 300, 40);
@@ -239,23 +238,40 @@ public class MenuCliente extends javax.swing.JFrame {
         MeuCadastro.add(CampoSenha);
         CampoSenha.setBounds(430, 430, 390, 50);
 
-        javax.swing.GroupLayout FaturasLayout = new javax.swing.GroupLayout(Faturas);
-        Faturas.setLayout(FaturasLayout);
-        FaturasLayout.setHorizontalGroup(
-            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FaturasLayout.createSequentialGroup()
-                .addComponent(MeuCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 1369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
-        );
-        FaturasLayout.setVerticalGroup(
-            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FaturasLayout.createSequentialGroup()
-                .addComponent(MeuCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
-        );
+        btnCancelar.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setBorderPainted(false);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
+        MeuCadastro.add(btnCancelar);
+        btnCancelar.setBounds(690, 520, 90, 30);
 
-        Principal.add(Faturas, "Faturas");
-        Faturas.getAccessibleContext().setAccessibleName("");
+        btnEditar.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setText("Editar");
+        btnEditar.setBorder(null);
+        btnEditar.setBorderPainted(false);
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar.setFocusPainted(false);
+        MeuCadastro.add(btnEditar);
+        btnEditar.setBounds(590, 520, 90, 30);
+
+        btnSalvar.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setText("Salvar");
+        btnSalvar.setBorder(null);
+        btnSalvar.setBorderPainted(false);
+        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar.setFocusPainted(false);
+        MeuCadastro.add(btnSalvar);
+        btnSalvar.setBounds(490, 520, 90, 30);
+
+        Principal.add(MeuCadastro, "meuCadastro");
 
         MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -271,6 +287,11 @@ public class MenuCliente extends javax.swing.JFrame {
         btnMeuCadastro.setBorder(null);
         btnMeuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMeuCadastro.setFocusPainted(false);
+        btnMeuCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMeuCadastroActionPerformed(evt);
+            }
+        });
         Menu.add(btnMeuCadastro);
         btnMeuCadastro.setBounds(180, 0, 190, 40);
 
@@ -327,42 +348,16 @@ public class MenuCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFaturasActionPerformed
-        // TODO add your handling code here:
+        MudarTelaMenu("Faturas");
     }//GEN-LAST:event_btnFaturasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnMeuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMeuCadastroActionPerformed
+        MudarTelaMenu("meuCadastro");
+    }//GEN-LAST:event_btnMeuCadastroActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuCliente().setVisible(true);
-            }
-        });
+    private void MudarTelaMenu(String tela) {
+        CardLayout cl = (CardLayout) Principal.getLayout();
+        cl.show(Principal, tela);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -380,12 +375,11 @@ public class MenuCliente extends javax.swing.JFrame {
     private javax.swing.JPanel MenuSuperior;
     private javax.swing.JPanel MeuCadastro;
     private javax.swing.JPanel Principal;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFaturas;
     private javax.swing.JButton btnMeuCadastro;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

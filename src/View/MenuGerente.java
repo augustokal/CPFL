@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author thais
@@ -43,7 +45,7 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtFuncionarios = new javax.swing.JTable();
         jtfNum = new javax.swing.JTextField();
         jtfNome = new javax.swing.JTextField();
         jtfUF = new javax.swing.JTextField();
@@ -53,10 +55,9 @@ public class MenuGerente extends javax.swing.JFrame {
         jtfCidade = new javax.swing.JTextField();
         jtfUsuario = new javax.swing.JTextField();
         jtfSenha = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         CampoCidade = new javax.swing.JLabel();
         CampoSenha = new javax.swing.JLabel();
         CampoRua3 = new javax.swing.JLabel();
@@ -66,19 +67,30 @@ public class MenuGerente extends javax.swing.JFrame {
         CampoUsuario = new javax.swing.JLabel();
         CampoRua6 = new javax.swing.JLabel();
         CampoRua7 = new javax.swing.JLabel();
-        Tarifas = new javax.swing.JPanel();
         MeuCadastro = new javax.swing.JPanel();
+        Tarifas = new javax.swing.JPanel();
+        jtfRua1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        CampoBandeira = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        CampoBandeira2 = new javax.swing.JLabel();
         MenuSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Menu = new javax.swing.JPanel();
-        btnMeuCadastro = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         btnTarifas = new javax.swing.JButton();
         btnFuncionarios = new javax.swing.JButton();
         btnInicio = new javax.swing.JButton();
+        btnMeuCadastro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 153));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1369, 730));
+        setResizable(false);
 
         Principal.setBackground(new java.awt.Color(255, 255, 255));
         Principal.setLayout(new java.awt.CardLayout());
@@ -91,11 +103,10 @@ public class MenuGerente extends javax.swing.JFrame {
         Inicio.setLayout(InicioLayout);
         InicioLayout.setHorizontalGroup(
             InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1389, Short.MAX_VALUE)
+            .addGap(0, 1384, Short.MAX_VALUE)
             .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(InicioLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1384, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(InicioLayout.createSequentialGroup()
@@ -105,11 +116,10 @@ public class MenuGerente extends javax.swing.JFrame {
         );
         InicioLayout.setVerticalGroup(
             InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
             .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(InicioLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(InicioLayout.createSequentialGroup()
@@ -118,7 +128,7 @@ public class MenuGerente extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        Principal.add(Inicio, "card4");
+        Principal.add(Inicio, "inicio");
 
         Funcionarios.setBackground(new java.awt.Color(255, 255, 255));
         Funcionarios.setLayout(null);
@@ -127,7 +137,7 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 152, 209));
         jLabel4.setText("UF:");
         Funcionarios.add(jLabel4);
-        jLabel4.setBounds(350, 300, 30, 20);
+        jLabel4.setBounds(350, 290, 30, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 152, 209));
@@ -151,19 +161,19 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 152, 209));
         jLabel8.setText("CEP:");
         Funcionarios.add(jLabel8);
-        jLabel8.setBounds(30, 150, 38, 20);
+        jLabel8.setBounds(30, 155, 38, 20);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 152, 209));
         jLabel9.setText("Bairro:");
         Funcionarios.add(jLabel9);
-        jLabel9.setBounds(30, 240, 60, 15);
+        jLabel9.setBounds(30, 220, 60, 15);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 152, 209));
         jLabel10.setText("Cidade:");
         Funcionarios.add(jLabel10);
-        jLabel10.setBounds(30, 300, 60, 15);
+        jLabel10.setBounds(30, 290, 60, 15);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 152, 209));
@@ -177,7 +187,7 @@ public class MenuGerente extends javax.swing.JFrame {
         Funcionarios.add(jLabel12);
         jLabel12.setBounds(30, 420, 60, 15);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -188,7 +198,7 @@ public class MenuGerente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtFuncionarios);
 
         Funcionarios.add(jScrollPane1);
         jScrollPane1.setBounds(440, 30, 910, 530);
@@ -221,13 +231,13 @@ public class MenuGerente extends javax.swing.JFrame {
         jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtfCEP.setBorder(null);
         Funcionarios.add(jtfCEP);
-        jtfCEP.setBounds(40, 180, 360, 20);
+        jtfCEP.setBounds(30, 180, 360, 20);
 
         jtfBairro.setBackground(new java.awt.Color(235, 235, 235));
         jtfBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtfBairro.setBorder(null);
         Funcionarios.add(jtfBairro);
-        jtfBairro.setBounds(30, 260, 360, 20);
+        jtfBairro.setBounds(30, 240, 360, 20);
 
         jtfCidade.setBackground(new java.awt.Color(235, 235, 235));
         jtfCidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -247,25 +257,42 @@ public class MenuGerente extends javax.swing.JFrame {
         Funcionarios.add(jtfSenha);
         jtfSenha.setBounds(30, 440, 240, 20);
 
-        jButton1.setText("jButton1");
-        Funcionarios.add(jButton1);
-        jButton1.setBounds(270, 530, 73, 30);
+        btnEditar.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setText("Editar");
+        btnEditar.setBorder(null);
+        btnEditar.setBorderPainted(false);
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar.setFocusPainted(false);
+        Funcionarios.add(btnEditar);
+        btnEditar.setBounds(160, 510, 90, 30);
 
-        jButton2.setText("jButton1");
-        Funcionarios.add(jButton2);
-        jButton2.setBounds(30, 530, 73, 30);
+        btnSalvar.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setText("Salvar");
+        btnSalvar.setBorder(null);
+        btnSalvar.setBorderPainted(false);
+        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar.setFocusPainted(false);
+        Funcionarios.add(btnSalvar);
+        btnSalvar.setBounds(60, 510, 90, 30);
 
-        jButton3.setText("jButton1");
-        Funcionarios.add(jButton3);
-        jButton3.setBounds(110, 530, 73, 30);
-
-        jButton4.setText("jButton1");
-        Funcionarios.add(jButton4);
-        jButton4.setBounds(190, 530, 73, 30);
+        btnCancelar.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setBorderPainted(false);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setFocusPainted(false);
+        Funcionarios.add(btnCancelar);
+        btnCancelar.setBounds(260, 510, 90, 30);
 
         CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         Funcionarios.add(CampoCidade);
-        CampoCidade.setBounds(20, 310, 280, 40);
+        CampoCidade.setBounds(20, 310, 300, 40);
 
         CampoSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         Funcionarios.add(CampoSenha);
@@ -281,11 +308,11 @@ public class MenuGerente extends javax.swing.JFrame {
 
         CampoCEP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         Funcionarios.add(CampoCEP1);
-        CampoCEP1.setBounds(30, 170, 390, 50);
+        CampoCEP1.setBounds(20, 170, 390, 50);
 
         CampoBairro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         Funcionarios.add(CampoBairro1);
-        CampoBairro1.setBounds(20, 250, 390, 50);
+        CampoBairro1.setBounds(20, 230, 390, 50);
 
         CampoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         Funcionarios.add(CampoUsuario);
@@ -299,33 +326,71 @@ public class MenuGerente extends javax.swing.JFrame {
         Funcionarios.add(CampoRua7);
         CampoRua7.setBounds(340, 110, 80, 50);
 
-        Principal.add(Funcionarios, "card6");
+        Principal.add(Funcionarios, "funcionarios");
 
-        javax.swing.GroupLayout TarifasLayout = new javax.swing.GroupLayout(Tarifas);
-        Tarifas.setLayout(TarifasLayout);
-        TarifasLayout.setHorizontalGroup(
-            TarifasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1389, Short.MAX_VALUE)
-        );
-        TarifasLayout.setVerticalGroup(
-            TarifasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
-        );
-
-        Principal.add(Tarifas, "card4");
+        MeuCadastro.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout MeuCadastroLayout = new javax.swing.GroupLayout(MeuCadastro);
         MeuCadastro.setLayout(MeuCadastroLayout);
         MeuCadastroLayout.setHorizontalGroup(
             MeuCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1389, Short.MAX_VALUE)
+            .addGap(0, 1384, Short.MAX_VALUE)
         );
         MeuCadastroLayout.setVerticalGroup(
             MeuCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 577, Short.MAX_VALUE)
         );
 
-        Principal.add(MeuCadastro, "card5");
+        Principal.add(MeuCadastro, "meuCadastro");
+
+        Tarifas.setBackground(new java.awt.Color(255, 255, 255));
+        Tarifas.setLayout(null);
+
+        jtfRua1.setBackground(new java.awt.Color(235, 235, 235));
+        jtfRua1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfRua1.setBorder(null);
+        Tarifas.add(jtfRua1);
+        jtfRua1.setBounds(320, 290, 270, 20);
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        Tarifas.add(jComboBox1);
+        jComboBox1.setBounds(320, 192, 290, 30);
+
+        CampoBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Tarifas.add(CampoBandeira);
+        CampoBandeira.setBounds(310, 280, 300, 40);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel13.setText("Valor kWh:");
+        Tarifas.add(jLabel13);
+        jLabel13.setBounds(640, 260, 100, 20);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel14.setText("Bandeira: ");
+        Tarifas.add(jLabel14);
+        jLabel14.setBounds(320, 170, 100, 20);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel15.setText("Valor Imposto:");
+        Tarifas.add(jLabel15);
+        jLabel15.setBounds(640, 160, 100, 20);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel16.setText("Valor kWh:");
+        Tarifas.add(jLabel16);
+        jLabel16.setBounds(320, 260, 100, 20);
+
+        CampoBandeira2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Tarifas.add(CampoBandeira2);
+        CampoBandeira2.setBounds(640, 190, 300, 40);
+
+        Principal.add(Tarifas, "tarifas");
 
         MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -334,23 +399,35 @@ public class MenuGerente extends javax.swing.JFrame {
         Menu.setBackground(new java.awt.Color(0, 152, 209));
         Menu.setLayout(null);
 
-        btnMeuCadastro.setBackground(new java.awt.Color(0, 152, 209));
-        btnMeuCadastro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnMeuCadastro.setForeground(new java.awt.Color(255, 255, 255));
-        btnMeuCadastro.setText("Meu Cadastro");
-        btnMeuCadastro.setBorder(null);
-        btnMeuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMeuCadastro.setFocusPainted(false);
-        Menu.add(btnMeuCadastro);
-        btnMeuCadastro.setBounds(560, 0, 190, 40);
+        btnSair.setBackground(new java.awt.Color(0, 152, 209));
+        btnSair.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
+        btnSair.setText("Sair");
+        btnSair.setBorder(null);
+        btnSair.setBorderPainted(false);
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSair.setFocusPainted(false);
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        Menu.add(btnSair);
+        btnSair.setBounds(1280, 0, 100, 40);
 
         btnTarifas.setBackground(new java.awt.Color(0, 152, 209));
         btnTarifas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnTarifas.setForeground(new java.awt.Color(255, 255, 255));
         btnTarifas.setText("Tarifas");
         btnTarifas.setBorder(null);
+        btnTarifas.setBorderPainted(false);
         btnTarifas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTarifas.setFocusPainted(false);
+        btnTarifas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTarifasActionPerformed(evt);
+            }
+        });
         Menu.add(btnTarifas);
         btnTarifas.setBounds(370, 0, 190, 40);
 
@@ -359,8 +436,14 @@ public class MenuGerente extends javax.swing.JFrame {
         btnFuncionarios.setForeground(new java.awt.Color(255, 255, 255));
         btnFuncionarios.setText("Funcionários");
         btnFuncionarios.setBorder(null);
+        btnFuncionarios.setBorderPainted(false);
         btnFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFuncionarios.setFocusPainted(false);
+        btnFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFuncionariosActionPerformed(evt);
+            }
+        });
         Menu.add(btnFuncionarios);
         btnFuncionarios.setBounds(180, 0, 190, 40);
 
@@ -369,10 +452,32 @@ public class MenuGerente extends javax.swing.JFrame {
         btnInicio.setForeground(new java.awt.Color(255, 255, 255));
         btnInicio.setText("Inicio");
         btnInicio.setBorder(null);
+        btnInicio.setBorderPainted(false);
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.setFocusPainted(false);
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
         Menu.add(btnInicio);
         btnInicio.setBounds(0, 0, 180, 40);
+
+        btnMeuCadastro.setBackground(new java.awt.Color(0, 152, 209));
+        btnMeuCadastro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnMeuCadastro.setForeground(new java.awt.Color(255, 255, 255));
+        btnMeuCadastro.setText("Meu Cadastro");
+        btnMeuCadastro.setBorder(null);
+        btnMeuCadastro.setBorderPainted(false);
+        btnMeuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMeuCadastro.setFocusPainted(false);
+        btnMeuCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMeuCadastroActionPerformed(evt);
+            }
+        });
+        Menu.add(btnMeuCadastro);
+        btnMeuCadastro.setBounds(560, 0, 190, 40);
 
         javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
         MenuSuperior.setLayout(MenuSuperiorLayout);
@@ -411,44 +516,35 @@ public class MenuGerente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuGerente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        MudarTelaMenu("inicio");
+    }//GEN-LAST:event_btnInicioActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuGerente().setVisible(true);
-            }
-        });
+    private void btnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionariosActionPerformed
+        MudarTelaMenu("funcionarios");
+    }//GEN-LAST:event_btnFuncionariosActionPerformed
+
+    private void btnTarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarifasActionPerformed
+        MudarTelaMenu("tarifas");
+    }//GEN-LAST:event_btnTarifasActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnMeuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMeuCadastroActionPerformed
+        MudarTelaMenu("meuCadastro");
+    }//GEN-LAST:event_btnMeuCadastroActionPerformed
+
+    private void MudarTelaMenu(String tela) {
+        CardLayout cl = (CardLayout) Principal.getLayout();
+        cl.show(Principal, tela);
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CampoBairro1;
+    private javax.swing.JLabel CampoBandeira;
+    private javax.swing.JLabel CampoBandeira2;
     private javax.swing.JLabel CampoCEP1;
     private javax.swing.JLabel CampoCidade;
     private javax.swing.JLabel CampoRua3;
@@ -464,18 +560,23 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JPanel MeuCadastro;
     private javax.swing.JPanel Principal;
     private javax.swing.JPanel Tarifas;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFuncionarios;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMeuCadastro;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnTarifas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -485,13 +586,14 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtFuncionarios;
     private javax.swing.JTextField jtfBairro;
     private javax.swing.JTextField jtfCEP;
     private javax.swing.JTextField jtfCidade;
     private javax.swing.JTextField jtfNome;
     private javax.swing.JTextField jtfNum;
     private javax.swing.JTextField jtfRua;
+    private javax.swing.JTextField jtfRua1;
     private javax.swing.JTextField jtfSenha;
     private javax.swing.JTextField jtfUF;
     private javax.swing.JTextField jtfUsuario;
