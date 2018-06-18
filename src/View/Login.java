@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -188,22 +189,32 @@ public class Login extends javax.swing.JFrame {
 //        
 //        MenuGerente menuGerente = new MenuGerente();
 //        menuGerente.setVisible(true);
-        try {
-            String user, senha;
+        if (checarUsuario() == true) {
+            String nomeU = usuario.getNome();
+            if (nomeU != null) {               
+                if ("Gerente".equals(usuario.getTipo())) {
+                    System.out.println("Validou gerente");
+                    MenuGerente menuGerente = new MenuGerente();
+                    menuGerente.setVisible(true);
+                    dispose();
+                }
+                if ("Medidor".equals(usuario.getTipo())) {
+                    System.out.println("Validou medidor");
+                    MenuMedidor menuMedidor = new MenuMedidor();
+                    menuMedidor.setVisible(true);
+                    dispose();
+                }
+                if ("Cliente".equals (usuario.getTipo())) {
+                    System.out.println("Validou cliente");
+                    MenuCliente menuCliente = new MenuCliente();
+                    menuCliente.setVisible(true);
+                    dispose();
+                }
 
-            Connection con;
-            Conexao conecta = new Conexao();
-            con = conecta.conectar();
-            ResultSet rs;
-        
-            user = txtUsuario.getText();
-            senha = String.valueOf(txtSenha.getPassword());
-            
-            String sql = "SELECT * FROM usuario WHERE usuario = '" + user + "' AND  senha = '" + senha + "'";
-            
-        
-        } catch (Exception ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            //Caso nao localize o login e senha corretos retorna msg de erro
+        } else{
+            JOptionPane.showMessageDialog(null, "***Nome de usuário ou senha inválidos***");
         }
 
 
