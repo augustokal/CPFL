@@ -9,12 +9,11 @@ package Classes;
  *
  * @author gabri
  */
-public class Endereco {
+public class Endereco extends Usuario{
     private int id_end;
     private String cep;
     private String rua;
     private int num_casa;
-    private int id_usuario;
     
     public void setId_end(int id_end){
         this.id_end = id_end;
@@ -42,13 +41,5 @@ public class Endereco {
     }
     public int getNum_casa(){
         return this.num_casa;
-    }
-
-    public void setId_usuario(int id_usuario){
-        this.id_usuario = id_usuario;
-    }
-    public int getId_usuario(){
-        return this.id_usuario;
-    }
-    
+    }    
 }

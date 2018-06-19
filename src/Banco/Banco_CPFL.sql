@@ -1,7 +1,7 @@
-DROP TABLE USUARIO;
-DROP TABLE ENDERECO;
-DROP TABLE TARIFAS;
 DROP TABLE FATURAS;
+DROP TABLE TARIFAS;
+DROP TABLE ENDERECO;
+DROP TABLE USUARIO;
 
 create table usuario (
 	id_usuario serial primary key not null,
@@ -16,8 +16,11 @@ create table endereco (
     cep varchar (20) not null,
     rua varchar (50) not null,
     num_casa int not null,
+    bairro varchar(50) not null,
+    cidade varchar(50) not null,
+    uf varchar(2) not null,
    	id_usuario int,
-  FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
+  	FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
 );
 
 create table tarifas (
@@ -39,3 +42,9 @@ FOREIGN KEY (id_tarifa) REFERENCES tarifas (id_tarifa)
 );
 
 insert into usuario (senha, usuario, tipo, nome) values ('adm', 'adm', 'Gerente', 'adm');
+insert into endereco (cep, rua, num_casa, bairro, cidade, uf, id_usuario) values ('13186-531','Rubi',34,'','','',1);
+
+select u.*, e.id_end, e.cep, e.rua, e.num_casa from usuario as u inner join endereco as e on (u.id_usuario = e.id_usuario);
+
+
+

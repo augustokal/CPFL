@@ -5,7 +5,12 @@
  */
 package View;
 
+import Classes.Endereco;
+import br.com.parg.viacep.ViaCEP;
+import br.com.parg.viacep.ViaCEPException;
 import java.awt.CardLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,9 +21,13 @@ public class MenuGerente extends javax.swing.JFrame {
     /**
      * Creates new form MenuCliente
      */
-    public MenuGerente() {
+    Endereco endereco = new Endereco();
+    
+    public MenuGerente(Endereco end) {
+        endereco = end;
         initComponents();
         this.setLocationRelativeTo(null);
+        carregarCampos();
     }
 
     /**
@@ -54,15 +63,15 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtFuncionarios = new javax.swing.JTable();
-        jtfNum = new javax.swing.JTextField();
-        jtfNome = new javax.swing.JTextField();
-        jtfUF = new javax.swing.JTextField();
-        jtfRua = new javax.swing.JTextField();
-        jtfCEP = new javax.swing.JTextField();
-        jtfBairro = new javax.swing.JTextField();
-        jtfCidade = new javax.swing.JTextField();
-        jtfUsuario = new javax.swing.JTextField();
-        jtfSenha = new javax.swing.JPasswordField();
+        jtfNumFunc = new javax.swing.JTextField();
+        jtfNomeFunc = new javax.swing.JTextField();
+        jtfUfFunc = new javax.swing.JTextField();
+        jtfRuaFunc = new javax.swing.JTextField();
+        jtfCEPFunc = new javax.swing.JTextField();
+        jtfBairroFunc = new javax.swing.JTextField();
+        jtfCidadeFunc = new javax.swing.JTextField();
+        jtfUsuarioFunc = new javax.swing.JTextField();
+        jtfSenhaFunc = new javax.swing.JPasswordField();
         CampoCidade = new javax.swing.JLabel();
         CampoSenha = new javax.swing.JLabel();
         CampoRua3 = new javax.swing.JLabel();
@@ -98,18 +107,18 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jtfNum1 = new javax.swing.JTextField();
-        jtfNome1 = new javax.swing.JTextField();
-        jtfUF1 = new javax.swing.JTextField();
-        jtfRua2 = new javax.swing.JTextField();
-        jtfCEP1 = new javax.swing.JTextField();
-        jtfBairro1 = new javax.swing.JTextField();
-        jtfCidade1 = new javax.swing.JTextField();
-        jtfUsuario1 = new javax.swing.JTextField();
+        jtfNum = new javax.swing.JTextField();
+        jtfNome = new javax.swing.JTextField();
+        jtfUF = new javax.swing.JTextField();
+        jtfRua = new javax.swing.JTextField();
+        jtfCEP = new javax.swing.JTextField();
+        jtfBairro = new javax.swing.JTextField();
+        jtfCidade = new javax.swing.JTextField();
+        jtfUsuario = new javax.swing.JTextField();
+        jtfSenha = new javax.swing.JPasswordField();
         CampoCidade1 = new javax.swing.JLabel();
         CampoRua4 = new javax.swing.JLabel();
         CampoRua8 = new javax.swing.JLabel();
-        CampoCEP2 = new javax.swing.JLabel();
         CampoBairro2 = new javax.swing.JLabel();
         CampoRua9 = new javax.swing.JLabel();
         CampoRua10 = new javax.swing.JLabel();
@@ -120,7 +129,8 @@ public class MenuGerente extends javax.swing.JFrame {
         btnCancelar1 = new javax.swing.JButton();
         btnEditar1 = new javax.swing.JButton();
         btnSalvar1 = new javax.swing.JButton();
-        jtfSenha2 = new javax.swing.JPasswordField();
+        CampoRua11 = new javax.swing.JLabel();
+        btnBuscarCEP = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 153));
@@ -140,7 +150,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnSair.setForeground(new java.awt.Color(255, 255, 255));
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSair.png"))); // NOI18N
         btnSair.setText("Sair");
-        btnSair.setBorder(null);
         btnSair.setBorderPainted(false);
         btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSair.setFocusPainted(false);
@@ -157,7 +166,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnInicio.setForeground(new java.awt.Color(255, 255, 255));
         btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconInicio.png"))); // NOI18N
         btnInicio.setText("Inicio");
-        btnInicio.setBorder(null);
         btnInicio.setBorderPainted(false);
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.setFocusPainted(false);
@@ -174,7 +182,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnFuncionarios.setForeground(new java.awt.Color(255, 255, 255));
         btnFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconFuncionario.png"))); // NOI18N
         btnFuncionarios.setText("Funcionários");
-        btnFuncionarios.setBorder(null);
         btnFuncionarios.setBorderPainted(false);
         btnFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFuncionarios.setFocusPainted(false);
@@ -191,7 +198,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnTarifas.setForeground(new java.awt.Color(255, 255, 255));
         btnTarifas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconTarifas.png"))); // NOI18N
         btnTarifas.setText("Tarifas");
-        btnTarifas.setBorder(null);
         btnTarifas.setBorderPainted(false);
         btnTarifas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTarifas.setFocusPainted(false);
@@ -208,7 +214,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnMeuCadastro.setForeground(new java.awt.Color(255, 255, 255));
         btnMeuCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconsUsuario.png"))); // NOI18N
         btnMeuCadastro.setText("Meu Cadastro");
-        btnMeuCadastro.setBorder(null);
         btnMeuCadastro.setBorderPainted(false);
         btnMeuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMeuCadastro.setFocusPainted(false);
@@ -350,59 +355,50 @@ public class MenuGerente extends javax.swing.JFrame {
         Funcionarios.add(jScrollPane1);
         jScrollPane1.setBounds(440, 30, 910, 530);
 
-        jtfNum.setBackground(new java.awt.Color(235, 235, 235));
-        jtfNum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfNum.setBorder(null);
-        Funcionarios.add(jtfNum);
-        jtfNum.setBounds(350, 120, 50, 20);
+        jtfNumFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNumFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfNumFunc);
+        jtfNumFunc.setBounds(350, 120, 50, 20);
 
-        jtfNome.setBackground(new java.awt.Color(235, 235, 235));
-        jtfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfNome.setBorder(null);
-        Funcionarios.add(jtfNome);
-        jtfNome.setBounds(30, 50, 360, 20);
+        jtfNomeFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNomeFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfNomeFunc);
+        jtfNomeFunc.setBounds(30, 50, 360, 20);
 
-        jtfUF.setBackground(new java.awt.Color(235, 235, 235));
-        jtfUF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfUF.setBorder(null);
-        Funcionarios.add(jtfUF);
-        jtfUF.setBounds(350, 320, 50, 20);
+        jtfUfFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUfFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfUfFunc);
+        jtfUfFunc.setBounds(350, 320, 50, 20);
 
-        jtfRua.setBackground(new java.awt.Color(235, 235, 235));
-        jtfRua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfRua.setBorder(null);
-        Funcionarios.add(jtfRua);
-        jtfRua.setBounds(35, 118, 240, 20);
+        jtfRuaFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfRuaFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfRuaFunc);
+        jtfRuaFunc.setBounds(35, 118, 240, 20);
 
-        jtfCEP.setBackground(new java.awt.Color(235, 235, 235));
-        jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfCEP.setBorder(null);
-        Funcionarios.add(jtfCEP);
-        jtfCEP.setBounds(30, 180, 360, 20);
+        jtfCEPFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCEPFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfCEPFunc);
+        jtfCEPFunc.setBounds(30, 180, 360, 20);
 
-        jtfBairro.setBackground(new java.awt.Color(235, 235, 235));
-        jtfBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfBairro.setBorder(null);
-        Funcionarios.add(jtfBairro);
-        jtfBairro.setBounds(30, 240, 360, 20);
+        jtfBairroFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfBairroFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfBairroFunc);
+        jtfBairroFunc.setBounds(30, 240, 360, 20);
 
-        jtfCidade.setBackground(new java.awt.Color(235, 235, 235));
-        jtfCidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfCidade.setBorder(null);
-        Funcionarios.add(jtfCidade);
-        jtfCidade.setBounds(30, 320, 250, 20);
+        jtfCidadeFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCidadeFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfCidadeFunc);
+        jtfCidadeFunc.setBounds(30, 320, 250, 20);
 
-        jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
-        jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfUsuario.setBorder(null);
-        Funcionarios.add(jtfUsuario);
-        jtfUsuario.setBounds(30, 380, 360, 20);
+        jtfUsuarioFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUsuarioFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfUsuarioFunc);
+        jtfUsuarioFunc.setBounds(30, 380, 360, 20);
 
-        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
-        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfSenha.setBorder(null);
-        Funcionarios.add(jtfSenha);
-        jtfSenha.setBounds(40, 440, 350, 15);
+        jtfSenhaFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfSenhaFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Funcionarios.add(jtfSenhaFunc);
+        jtfSenhaFunc.setBounds(40, 440, 350, 20);
 
         CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         Funcionarios.add(CampoCidade);
@@ -445,7 +441,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnSalvar2.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
         btnSalvar2.setText("Salvar");
-        btnSalvar2.setBorder(null);
         btnSalvar2.setBorderPainted(false);
         btnSalvar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalvar2.setFocusPainted(false);
@@ -457,7 +452,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnEditar2.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
         btnEditar2.setText("Editar");
-        btnEditar2.setBorder(null);
         btnEditar2.setBorderPainted(false);
         btnEditar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar2.setFocusPainted(false);
@@ -469,7 +463,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnCancelar2.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
         btnCancelar2.setText("Cancelar");
-        btnCancelar2.setBorder(null);
         btnCancelar2.setBorderPainted(false);
         btnCancelar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar2.setFocusPainted(false);
@@ -483,7 +476,6 @@ public class MenuGerente extends javax.swing.JFrame {
 
         jtfRua1.setBackground(new java.awt.Color(235, 235, 235));
         jtfRua1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfRua1.setBorder(null);
         Tarifas.add(jtfRua1);
         jtfRua1.setBounds(330, 290, 270, 20);
 
@@ -544,7 +536,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnSalvar3.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
         btnSalvar3.setText("Salvar");
-        btnSalvar3.setBorder(null);
         btnSalvar3.setBorderPainted(false);
         btnSalvar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalvar3.setEnabled(false);
@@ -557,7 +548,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnEditar3.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
         btnEditar3.setText("Editar");
-        btnEditar3.setBorder(null);
         btnEditar3.setBorderPainted(false);
         btnEditar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar3.setFocusPainted(false);
@@ -569,7 +559,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnCancelar3.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
         btnCancelar3.setText("Cancelar");
-        btnCancelar3.setBorder(null);
         btnCancelar3.setBorderPainted(false);
         btnCancelar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar3.setEnabled(false);
@@ -624,53 +613,50 @@ public class MenuGerente extends javax.swing.JFrame {
         MeuCadastro.add(jLabel23);
         jLabel23.setBounds(440, 290, 60, 15);
 
-        jtfNum1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfNum1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfNum1.setBorder(null);
-        MeuCadastro.add(jtfNum1);
-        jtfNum1.setBounds(760, 120, 50, 20);
+        jtfNum.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfNum);
+        jtfNum.setBounds(760, 120, 50, 20);
 
-        jtfNome1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfNome1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfNome1.setBorder(null);
-        MeuCadastro.add(jtfNome1);
-        jtfNome1.setBounds(440, 50, 360, 20);
+        jtfNome.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfNome);
+        jtfNome.setBounds(440, 50, 360, 20);
 
-        jtfUF1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfUF1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfUF1.setBorder(null);
-        MeuCadastro.add(jtfUF1);
-        jtfUF1.setBounds(760, 320, 50, 20);
+        jtfUF.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfUF);
+        jtfUF.setBounds(760, 320, 50, 20);
 
-        jtfRua2.setBackground(new java.awt.Color(235, 235, 235));
-        jtfRua2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfRua2.setBorder(null);
-        MeuCadastro.add(jtfRua2);
-        jtfRua2.setBounds(440, 120, 240, 20);
+        jtfRua.setBackground(new java.awt.Color(235, 235, 235));
+        jtfRua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfRua);
+        jtfRua.setBounds(440, 120, 240, 20);
 
-        jtfCEP1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfCEP1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfCEP1.setBorder(null);
-        MeuCadastro.add(jtfCEP1);
-        jtfCEP1.setBounds(440, 180, 360, 20);
+        jtfCEP.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfCEP);
+        jtfCEP.setBounds(440, 180, 270, 20);
 
-        jtfBairro1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfBairro1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfBairro1.setBorder(null);
-        MeuCadastro.add(jtfBairro1);
-        jtfBairro1.setBounds(440, 250, 360, 20);
+        jtfBairro.setBackground(new java.awt.Color(235, 235, 235));
+        jtfBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfBairro);
+        jtfBairro.setBounds(440, 250, 360, 20);
 
-        jtfCidade1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfCidade1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfCidade1.setBorder(null);
-        MeuCadastro.add(jtfCidade1);
-        jtfCidade1.setBounds(440, 315, 270, 20);
+        jtfCidade.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfCidade);
+        jtfCidade.setBounds(440, 315, 270, 20);
 
-        jtfUsuario1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfUsuario1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfUsuario1.setBorder(null);
-        MeuCadastro.add(jtfUsuario1);
-        jtfUsuario1.setBounds(440, 380, 360, 20);
+        jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfUsuario);
+        jtfUsuario.setBounds(440, 380, 360, 20);
+
+        jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
+        jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        MeuCadastro.add(jtfSenha);
+        jtfSenha.setBounds(450, 440, 350, 20);
 
         CampoCidade1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoCidade1);
@@ -678,15 +664,11 @@ public class MenuGerente extends javax.swing.JFrame {
 
         CampoRua4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoRua4);
-        CampoRua4.setBounds(430, 110, 300, 40);
+        CampoRua4.setBounds(430, 170, 300, 40);
 
         CampoRua8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
         MeuCadastro.add(CampoRua8);
         CampoRua8.setBounds(750, 310, 80, 50);
-
-        CampoCEP2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
-        MeuCadastro.add(CampoCEP2);
-        CampoCEP2.setBounds(430, 170, 390, 50);
 
         CampoBairro2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         MeuCadastro.add(CampoBairro2);
@@ -725,7 +707,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnCancelar1.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
         btnCancelar1.setText("Cancelar");
-        btnCancelar1.setBorder(null);
         btnCancelar1.setBorderPainted(false);
         btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar1.setEnabled(false);
@@ -738,7 +719,6 @@ public class MenuGerente extends javax.swing.JFrame {
         btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
         btnEditar1.setText("Editar");
-        btnEditar1.setBorder(null);
         btnEditar1.setBorderPainted(false);
         btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar1.setFocusPainted(false);
@@ -750,19 +730,32 @@ public class MenuGerente extends javax.swing.JFrame {
         btnSalvar1.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
         btnSalvar1.setText("Salvar");
-        btnSalvar1.setBorder(null);
         btnSalvar1.setBorderPainted(false);
         btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalvar1.setEnabled(false);
         btnSalvar1.setFocusPainted(false);
+        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar1ActionPerformed(evt);
+            }
+        });
         MeuCadastro.add(btnSalvar1);
         btnSalvar1.setBounds(580, 500, 110, 40);
 
-        jtfSenha2.setBackground(new java.awt.Color(235, 235, 235));
-        jtfSenha2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfSenha2.setBorder(null);
-        MeuCadastro.add(jtfSenha2);
-        jtfSenha2.setBounds(450, 440, 350, 20);
+        CampoRua11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        MeuCadastro.add(CampoRua11);
+        CampoRua11.setBounds(430, 110, 300, 40);
+
+        btnBuscarCEP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnBuscarCEP.setText("Buscar");
+        btnBuscarCEP.setBorder(null);
+        btnBuscarCEP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCEPActionPerformed(evt);
+            }
+        });
+        MeuCadastro.add(btnBuscarCEP);
+        btnBuscarCEP.setBounds(750, 170, 70, 40);
 
         Principal.add(MeuCadastro, "meuCadastro");
 
@@ -804,10 +797,39 @@ public class MenuGerente extends javax.swing.JFrame {
         MudarTelaMenu("meuCadastro");
     }//GEN-LAST:event_btnMeuCadastroActionPerformed
 
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+        
+    }//GEN-LAST:event_btnSalvar1ActionPerformed
+
+    private void btnBuscarCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCEPActionPerformed
+        ViaCEP viaCep = new ViaCEP();
+        
+        try {
+            viaCep.buscar(jtfCEP.getText());
+            
+            jtfRua.setText(viaCep.getLogradouro());
+            jtfBairro.setText(viaCep.getBairro());
+            jtfCidade.setText(viaCep.getLocalidade());
+            jtfUF.setText(viaCep.getUf());
+            
+        } catch (ViaCEPException ex) {
+            Logger.getLogger(MenuGerente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarCEPActionPerformed
+
     private void MudarTelaMenu(String tela) {
         CardLayout cl = (CardLayout) Principal.getLayout();
         cl.show(Principal, tela);
     }
+    
+    private void carregarCampos(){
+        jtfNome.setText(endereco.getNome());
+        jtfRua.setText(endereco.getRua());
+        jtfNum.setText("" + endereco.getNum_casa());
+        jtfCEP.setText(endereco.getCep());
+        jtfUsuario.setText(endereco.getUsuario());
+        jtfSenha.setText(endereco.getSenha());        
+    }    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CampoBairro1;
@@ -817,10 +839,10 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JLabel CampoBandeira2;
     private javax.swing.JLabel CampoBandeira3;
     private javax.swing.JLabel CampoCEP1;
-    private javax.swing.JLabel CampoCEP2;
     private javax.swing.JLabel CampoCidade;
     private javax.swing.JLabel CampoCidade1;
     private javax.swing.JLabel CampoRua10;
+    private javax.swing.JLabel CampoRua11;
     private javax.swing.JLabel CampoRua3;
     private javax.swing.JLabel CampoRua4;
     private javax.swing.JLabel CampoRua5;
@@ -839,6 +861,7 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JPanel MeuCadastro;
     private javax.swing.JPanel Principal;
     private javax.swing.JPanel Tarifas;
+    private javax.swing.JButton btnBuscarCEP;
     private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnCancelar2;
     private javax.swing.JButton btnCancelar3;
@@ -883,23 +906,23 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtFuncionarios;
     private javax.swing.JTextField jtfBairro;
-    private javax.swing.JTextField jtfBairro1;
+    private javax.swing.JTextField jtfBairroFunc;
     private javax.swing.JTextField jtfCEP;
-    private javax.swing.JTextField jtfCEP1;
+    private javax.swing.JTextField jtfCEPFunc;
     private javax.swing.JTextField jtfCidade;
-    private javax.swing.JTextField jtfCidade1;
+    private javax.swing.JTextField jtfCidadeFunc;
     private javax.swing.JTextField jtfNome;
-    private javax.swing.JTextField jtfNome1;
+    private javax.swing.JTextField jtfNomeFunc;
     private javax.swing.JTextField jtfNum;
-    private javax.swing.JTextField jtfNum1;
+    private javax.swing.JTextField jtfNumFunc;
     private javax.swing.JTextField jtfRua;
     private javax.swing.JTextField jtfRua1;
-    private javax.swing.JTextField jtfRua2;
+    private javax.swing.JTextField jtfRuaFunc;
     private javax.swing.JPasswordField jtfSenha;
-    private javax.swing.JPasswordField jtfSenha2;
+    private javax.swing.JPasswordField jtfSenhaFunc;
     private javax.swing.JTextField jtfUF;
-    private javax.swing.JTextField jtfUF1;
+    private javax.swing.JTextField jtfUfFunc;
     private javax.swing.JTextField jtfUsuario;
-    private javax.swing.JTextField jtfUsuario1;
+    private javax.swing.JTextField jtfUsuarioFunc;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,6 @@
 package View;
 
+import Classes.Endereco;
 import Classes.Usuario;
 import ConexaoBD.Conexao;
 import java.sql.Connection;
@@ -15,29 +16,33 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
-    Usuario usuario = new Usuario();
-    
-    private boolean checarUsuario() {  
+    Endereco endereco = new Endereco();
+
+    private boolean checarUsuario() {
         try (Connection con = Conexao.conectar()) {
-        String user = txtUsuario.getText();
-        String senha = txtSenha.getText();
-        
-        String sql = "SELECT * FROM USUARIO"
-        + " where usuario = ? and senha = ?";
-        
-        PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setString(1, user);
-        stmt.setString(2, senha);
-        ResultSet rs = stmt.executeQuery();
-        
-        if (rs.next()) {
-            usuario.setId_usuario(rs.getInt("id_usuario"));
-            usuario.setNome(rs.getString("nome"));  
-            usuario.setTipo(rs.getString("tipo"));
-            return true;
-        }
-        
+            String user = txtUsuario.getText();
+            String senha = txtSenha.getText();
+
+            String sql = "SELECT u.*, e.id_end, e.cep, e.rua, e.num_casa FROM usuario as u INNER JOIN endereco as e on (u.id_usuario = e.id_usuario)"
+                    + " where usuario = ? and senha = ?";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, user);
+            stmt.setString(2, senha);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                endereco.setId_usuario(rs.getInt("id_usuario"));
+                endereco.setNome(rs.getString("nome"));
+                endereco.setTipo(rs.getString("tipo"));
+                endereco.setUsuario(rs.getString("usuario"));
+                endereco.setSenha(rs.getString("senha"));
+                endereco.setId_end(rs.getInt("id_end"));
+                endereco.setCep(rs.getString("cep"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setNum_casa(rs.getInt("num_casa"));
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -74,6 +79,7 @@ public class Login extends javax.swing.JFrame {
         btnFechar.setToolTipText("");
         btnFechar.setBorderPainted(false);
         btnFechar.setContentAreaFilled(false);
+        btnFechar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFechar.setFocusPainted(false);
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,30 +202,30 @@ public class Login extends javax.swing.JFrame {
 //        MenuGerente menuGerente = new MenuGerente();
 //        menuGerente.setVisible(true);
         if (checarUsuario() == true) {
-            String nomeU = usuario.getNome();
-            if (nomeU != null) {               
-                if ("Gerente".equals(usuario.getTipo())) {
+            String nomeU = endereco.getNome();
+            if (nomeU != null) {
+                if ("Gerente".equals(endereco.getTipo())) {
                     System.out.println("Validou gerente");
-                    MenuGerente menuGerente = new MenuGerente();
+                    MenuGerente menuGerente = new MenuGerente(endereco);
                     menuGerente.setVisible(true);
                     dispose();
                 }
-                if ("Medidor".equals(usuario.getTipo())) {
+                if ("Medidor".equals(endereco.getTipo())) {
                     System.out.println("Validou medidor");
                     MenuMedidor menuMedidor = new MenuMedidor();
                     menuMedidor.setVisible(true);
                     dispose();
                 }
-                if ("Cliente".equals (usuario.getTipo())) {
+                if ("Cliente".equals(endereco.getTipo())) {
                     System.out.println("Validou cliente");
                     MenuCliente menuCliente = new MenuCliente();
                     menuCliente.setVisible(true);
                     dispose();
                 }
 
-            } 
+            }
             //Caso nao localize o login e senha corretos retorna msg de erro
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "***Nome de usuário ou senha inválidos***");
         }
 
