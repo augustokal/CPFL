@@ -204,7 +204,7 @@ public class Login extends javax.swing.JFrame {
                     menuGerente.setVisible(true);
                     dispose();
                 }
-                if ("Medidor".equals(usuario.getTipo())) {
+                if ("medidor".equals(usuario.getTipo())) {
                     System.out.println("Validou medidor");
                     MenuMedidor menuMedidor = new MenuMedidor();
                     menuMedidor.setVisible(true);

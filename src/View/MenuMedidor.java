@@ -5,6 +5,8 @@
  */
 package View;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author gabri
@@ -285,7 +287,8 @@ public class MenuMedidor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio1ActionPerformed
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Principal.getLayout();
+        cl.show(Principal,"coleta");
     }//GEN-LAST:event_btnInicio1ActionPerformed
 
 

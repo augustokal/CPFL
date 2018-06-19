@@ -5,6 +5,7 @@
  */
 package ConexaoBD;
 
+import Classes.Endereco;
 import Classes.Faturas;
 import Classes.Tarifas;
 import java.sql.Connection;
@@ -17,6 +18,45 @@ import java.sql.ResultSet;
  * @author gabri
  */
 public class FaturasBD {
+    
+    public Endereco verificarIndereco (Endereco endereco) throws Exception{
+        Connection con;
+        Conexao c = new Conexao();
+        con = c.conectar();
+        String sql = " SELECT * FROM ENDERECO WHERE CEP=? and num_casa= ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1,endereco.getCep());
+        ps.setInt(2, endereco.getNum_casa());
+        ResultSet rs = ps.executeQuery();
+        return endereco;
+    }
+    
+    
+    public Tarifas puxarImposto ( Tarifas tarifa) throws Exception{
+        Connection con;
+        Conexao c = new Conexao();
+        con = c.conectar();
+        String sql = " SELECT * FROM TARIFAS ";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            tarifa.setId_tarifa(rs.getInt("Id_tarifa"));
+            tarifa.setVal_kw(rs.getDouble("val_kw"));
+            tarifa.setVal_imposto(rs.getDouble("val_imposto"));
+            tarifa.setCor(rs.getString("cor"));
+            tarifa.setPorcentagem(rs.getDouble("porcentagem"));
+        }
+        return tarifa;
+    }
+    
+    public void gerarFatura (Faturas fatura) throws Exception{
+        Connection con;
+        Conexao c = new Conexao();
+        con = c.conectar();
+        
+        
+        
+    }
     
     public void inserir(Faturas fatura) throws Exception {
         Connection con;
