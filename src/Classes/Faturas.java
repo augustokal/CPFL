@@ -7,12 +7,13 @@ package Classes;
 
 import java.util.Date;
 
-public class Faturas {
+public class Faturas extends Tarifas{
     private int id_fatura;
     private Date dt_fatura;
     private Date dt_venc;
     private int id_tarifa;
     private int id_usuario;
+    private double kw_gasto;
     
     
     public void setId_fatura(int id_fatura){
@@ -50,6 +51,14 @@ public class Faturas {
     }
     public int getId_usuario(){
         return this.id_usuario;
+    }
+
+    public double getKw_gasto() {
+        return kw_gasto;
+    }
+
+    public void setKw_gasto(double kw_gasto) {
+        this.kw_gasto = kw_gasto;
     }
     
 }

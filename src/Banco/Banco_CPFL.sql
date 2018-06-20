@@ -32,6 +32,7 @@ create table faturas (
 	id_fatura serial primary key not null,
     dt_fatura date,
     dt_venc date,
+	kw_gasto numeric(10,2),
     id_tarifa int,
     id_usuario int,
 FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),

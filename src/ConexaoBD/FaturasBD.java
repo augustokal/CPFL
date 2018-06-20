@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  */
 public class FaturasBD {
     
-    public Endereco verificarIndereco (Endereco endereco) throws Exception{
+    public int verificarEndereco (Endereco endereco) throws Exception{
         Connection con;
         Conexao c = new Conexao();
         con = c.conectar();
@@ -28,9 +28,11 @@ public class FaturasBD {
         ps.setString(1,endereco.getCep());
         ps.setInt(2, endereco.getNum_casa());
         ResultSet rs = ps.executeQuery();
-        return endereco;
+        if(rs.next()){
+            return rs.getInt("ID_usuario");
+        } 
+        return 0;
     }
-    
     
     public Tarifas puxarImposto ( Tarifas tarifa) throws Exception{
         Connection con;
@@ -58,17 +60,23 @@ public class FaturasBD {
         
     }
     
-    public void inserir(Faturas fatura) throws Exception {
+    public void inserir(Faturas fatura, int id_usuario) throws Exception {
         Connection con;
         Conexao c = new Conexao();
         con = c.conectar();
-        String sql = "INSERT INTO faturas (dt_fatura, dt_venc, id_tarifa,id_usuario) VALUES (?,?,?,?)";
+        String sql = "select max(id_tarifa) FROM tarifas";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setDate(1, (Date) fatura.getDt_fatura());
-        ps.setDate(2, (Date) fatura.getDt_venc());
-        ps.setInt(3, fatura.getId_tarifa());
-        ps.setInt(4, fatura.getId_usuario());
-        ps.execute();
+        
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            fatura.setId_tarifa(rs.getInt("Max"));
+            sql = "INSERT INTO faturas (id_tarifa,id_usuario, kw_gasto) VALUES (?,?,?)";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, fatura.getId_tarifa());
+            ps.setInt(2, id_usuario);
+            ps.setDouble(3, fatura.getKw_gasto());
+            ps.execute();
+        }
         con.close();
     }
     

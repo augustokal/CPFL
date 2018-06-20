@@ -5,7 +5,13 @@
  */
 package View;
 
+import Classes.Endereco;
+import Classes.Faturas;
+import Classes.Tarifas;
+import ConexaoBD.FaturasBD;
 import java.awt.CardLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -228,8 +234,12 @@ public class MenuMedidor extends javax.swing.JFrame {
         btnSalvar1.setBorder(null);
         btnSalvar1.setBorderPainted(false);
         btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar1.setEnabled(false);
         btnSalvar1.setFocusPainted(false);
+        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar1ActionPerformed(evt);
+            }
+        });
         Tarifas.add(btnSalvar1);
         btnSalvar1.setBounds(440, 290, 110, 40);
 
@@ -278,6 +288,11 @@ public class MenuMedidor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    FaturasBD faturasBD = new FaturasBD();
+    Endereco endereco = new Endereco();
+    Tarifas tarifa = new Tarifas();
+    Faturas fatura = new Faturas();
+    
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         
     }//GEN-LAST:event_btnInicioActionPerformed
@@ -290,6 +305,23 @@ public class MenuMedidor extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) Principal.getLayout();
         cl.show(Principal,"coleta");
     }//GEN-LAST:event_btnInicio1ActionPerformed
+
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+        endereco.setCep(jtfCEP.getText());
+        endereco.setNum_casa(Integer.parseInt(jtfNumero.getText()));
+        fatura.setKw_gasto(Double.parseDouble(jtfKw.getText()));
+        
+        try {
+            int aux = faturasBD.verificarEndereco(endereco);
+            
+            if(aux > 0){
+                
+                faturasBD.inserir(fatura, aux);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MenuMedidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSalvar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
