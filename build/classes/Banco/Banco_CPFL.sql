@@ -15,8 +15,6 @@ create table endereco (
 	id_end serial primary key not null,
     cep varchar (20) not null,
     rua varchar (50) not null,
-    cidade varchar (20) not null,
-    uf varchar (2) not null,
     num_casa int not null,
    	id_usuario int,
   FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
@@ -36,30 +34,8 @@ create table faturas (
     dt_venc date,
     id_tarifa int,
     id_usuario int,
-    Datafatura timestamp without time zone,
-    
 FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario),
-FOREIGN KEY (id_tarifa) REFERENCES tarifas (id_tarifa)       
-)
-WITH ( OIDS = false); 
+FOREIGN KEY (id_tarifa) REFERENCES tarifas (id_tarifa)    
+);
 
-insert into faturas (dt_fatura) values ('10/10/2018');
-select * from faturas;
-
-CREATE FUNCTION Data_fatura ()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.Datafatura = now();
-    RETURN NEW;
-END; 
-$$
-LANGUAGE 'plpgsql' ;
-
-ALTER FUNCTION Data_fatura () OWNER TO postgres;
-
-CREATE TRIGGER  Datanovafatura 
-before insert  
-ON faturas 
-FOR EACH ROW
-EXECUTE PROCEDURE  Data_fatura ();
-
+insert into usuario (senha, usuario, tipo, nome) values ('adm', 'adm', 'Gerente', 'adm');
