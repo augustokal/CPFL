@@ -5,6 +5,15 @@
  */
 package View;
 
+import Classes.Endereco;
+import Classes.Faturas;
+import Classes.Tarifas;
+import ConexaoBD.FaturasBD;
+import java.awt.CardLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gabri
@@ -16,7 +25,13 @@ public class MenuMedidor extends javax.swing.JFrame {
      */
     public MenuMedidor() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
+
+    FaturasBD faturasBD = new FaturasBD();
+    Endereco endereco = new Endereco();
+    Tarifas tarifa = new Tarifas();
+    Faturas fatura = new Faturas();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,15 +47,15 @@ public class MenuMedidor extends javax.swing.JFrame {
         Menu = new javax.swing.JPanel();
         btnInicio = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        btnInicio1 = new javax.swing.JButton();
+        btnColeta = new javax.swing.JButton();
         Principal = new javax.swing.JPanel();
         Inicio = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        Tarifas = new javax.swing.JPanel();
+        Coleta = new javax.swing.JPanel();
         jtfCEP = new javax.swing.JTextField();
         jtfNumero = new javax.swing.JTextField();
-        jtfKw = new javax.swing.JTextField();
+        jtfKwGastos = new javax.swing.JTextField();
         CampoCEP = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -48,10 +63,10 @@ public class MenuMedidor extends javax.swing.JFrame {
         CampoBandeira1 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         btnSalvar1 = new javax.swing.JButton();
-        btnEditar1 = new javax.swing.JButton();
         btnCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -94,21 +109,21 @@ public class MenuMedidor extends javax.swing.JFrame {
         Menu.add(btnSair);
         btnSair.setBounds(1280, 0, 100, 40);
 
-        btnInicio1.setBackground(new java.awt.Color(0, 152, 209));
-        btnInicio1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnInicio1.setForeground(new java.awt.Color(255, 255, 255));
-        btnInicio1.setText("Coleta");
-        btnInicio1.setBorder(null);
-        btnInicio1.setBorderPainted(false);
-        btnInicio1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnInicio1.setFocusPainted(false);
-        btnInicio1.addActionListener(new java.awt.event.ActionListener() {
+        btnColeta.setBackground(new java.awt.Color(0, 152, 209));
+        btnColeta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnColeta.setForeground(new java.awt.Color(255, 255, 255));
+        btnColeta.setText("Coleta");
+        btnColeta.setBorder(null);
+        btnColeta.setBorderPainted(false);
+        btnColeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnColeta.setFocusPainted(false);
+        btnColeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicio1ActionPerformed(evt);
+                btnColetaActionPerformed(evt);
             }
         });
-        Menu.add(btnInicio1);
-        btnInicio1.setBounds(180, 0, 180, 40);
+        Menu.add(btnColeta);
+        btnColeta.setBounds(180, 0, 180, 40);
 
         javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
         MenuSuperior.setLayout(MenuSuperiorLayout);
@@ -167,55 +182,55 @@ public class MenuMedidor extends javax.swing.JFrame {
 
         Principal.add(Inicio, "inicio");
 
-        Tarifas.setBackground(new java.awt.Color(255, 255, 255));
-        Tarifas.setLayout(null);
+        Coleta.setBackground(new java.awt.Color(255, 255, 255));
+        Coleta.setLayout(null);
 
         jtfCEP.setBackground(new java.awt.Color(235, 235, 235));
         jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtfCEP.setBorder(null);
-        Tarifas.add(jtfCEP);
-        jtfCEP.setBounds(320, 100, 270, 20);
+        Coleta.add(jtfCEP);
+        jtfCEP.setBounds(325, 95, 260, 20);
 
         jtfNumero.setBackground(new java.awt.Color(235, 235, 235));
         jtfNumero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtfNumero.setBorder(null);
-        Tarifas.add(jtfNumero);
+        Coleta.add(jtfNumero);
         jtfNumero.setBounds(640, 100, 50, 20);
 
-        jtfKw.setBackground(new java.awt.Color(235, 235, 235));
-        jtfKw.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtfKw.setBorder(null);
-        Tarifas.add(jtfKw);
-        jtfKw.setBounds(320, 200, 270, 20);
+        jtfKwGastos.setBackground(new java.awt.Color(235, 235, 235));
+        jtfKwGastos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfKwGastos.setBorder(null);
+        Coleta.add(jtfKwGastos);
+        jtfKwGastos.setBounds(320, 200, 270, 20);
 
         CampoCEP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Tarifas.add(CampoCEP);
+        Coleta.add(CampoCEP);
         CampoCEP.setBounds(310, 90, 300, 40);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 152, 209));
         jLabel14.setText("CEP:");
-        Tarifas.add(jLabel14);
+        Coleta.add(jLabel14);
         jLabel14.setBounds(320, 70, 100, 20);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 152, 209));
         jLabel15.setText("KW gastos:");
-        Tarifas.add(jLabel15);
+        Coleta.add(jLabel15);
         jLabel15.setBounds(320, 160, 100, 20);
 
         CampoKwh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Tarifas.add(CampoKwh);
+        Coleta.add(CampoKwh);
         CampoKwh.setBounds(310, 190, 300, 40);
 
         CampoBandeira1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
-        Tarifas.add(CampoBandeira1);
+        Coleta.add(CampoBandeira1);
         CampoBandeira1.setBounds(630, 90, 80, 40);
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 152, 209));
         jLabel26.setText("Nº:");
-        Tarifas.add(jLabel26);
+        Coleta.add(jLabel26);
         jLabel26.setBounds(630, 70, 100, 20);
 
         btnSalvar1.setBackground(new java.awt.Color(0, 152, 209));
@@ -226,22 +241,14 @@ public class MenuMedidor extends javax.swing.JFrame {
         btnSalvar1.setBorder(null);
         btnSalvar1.setBorderPainted(false);
         btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar1.setEnabled(false);
         btnSalvar1.setFocusPainted(false);
-        Tarifas.add(btnSalvar1);
-        btnSalvar1.setBounds(440, 290, 110, 40);
-
-        btnEditar1.setBackground(new java.awt.Color(0, 152, 209));
-        btnEditar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
-        btnEditar1.setText("Editar");
-        btnEditar1.setBorder(null);
-        btnEditar1.setBorderPainted(false);
-        btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar1.setFocusPainted(false);
-        Tarifas.add(btnEditar1);
-        btnEditar1.setBounds(320, 290, 110, 40);
+        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar1ActionPerformed(evt);
+            }
+        });
+        Coleta.add(btnSalvar1);
+        btnSalvar1.setBounds(330, 290, 110, 40);
 
         btnCancelar1.setBackground(new java.awt.Color(0, 152, 209));
         btnCancelar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -251,12 +258,11 @@ public class MenuMedidor extends javax.swing.JFrame {
         btnCancelar1.setBorder(null);
         btnCancelar1.setBorderPainted(false);
         btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar1.setEnabled(false);
         btnCancelar1.setFocusPainted(false);
-        Tarifas.add(btnCancelar1);
-        btnCancelar1.setBounds(560, 290, 110, 40);
+        Coleta.add(btnCancelar1);
+        btnCancelar1.setBounds(500, 290, 110, 40);
 
-        Principal.add(Tarifas, "coleta");
+        Principal.add(Coleta, "coleta");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -277,31 +283,64 @@ public class MenuMedidor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        
+        CardLayout cl = (CardLayout) Principal.getLayout();
+        cl.show(Principal, "inicio");
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        System.exit(0);
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void btnInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicio1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInicio1ActionPerformed
+    private void btnColetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColetaActionPerformed
+        CardLayout cl = (CardLayout) Principal.getLayout();
+        cl.show(Principal, "coleta");
+    }//GEN-LAST:event_btnColetaActionPerformed
 
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+        endereco.setCep(jtfCEP.getText());
+        endereco.setNum_casa(Integer.parseInt(jtfNumero.getText()));
+        fatura.setKwGastos(Double.parseDouble(jtfKwGastos.getText()));
+
+        try {
+            int idUser = faturasBD.verificarEndereco(endereco);
+
+            if (idUser > 0) {
+                int opcao = JOptionPane.showConfirmDialog(this, "Os dados estão corretos? \n" + "\n - CEP: " + jtfCEP.getText()
+                        + "  Nº: " + jtfNumero.getText() + "\n- Kw Gastos pela residencia: " + jtfKwGastos.getText());
+
+                if (opcao == 0) {
+                    faturasBD.inserir(fatura, idUser);
+                    JOptionPane.showMessageDialog(null, "Dados cadastrados com Sucesso!!");
+                    limparCampos();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Endereço não encontrado!!");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar dados.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSalvar1ActionPerformed
+
+    private void limparCampos() {
+        jtfCEP.setText("");
+        jtfKwGastos.setText("");
+        jtfNumero.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CampoBandeira1;
     private javax.swing.JLabel CampoCEP;
     private javax.swing.JLabel CampoKwh;
+    private javax.swing.JPanel Coleta;
     private javax.swing.JPanel Inicio;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuSuperior;
     private javax.swing.JPanel Principal;
-    private javax.swing.JPanel Tarifas;
     private javax.swing.JButton btnCancelar1;
-    private javax.swing.JButton btnEditar1;
+    private javax.swing.JButton btnColeta;
     private javax.swing.JButton btnInicio;
-    private javax.swing.JButton btnInicio1;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar1;
     private javax.swing.JLabel jLabel1;
@@ -311,7 +350,7 @@ public class MenuMedidor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jtfCEP;
-    private javax.swing.JTextField jtfKw;
+    private javax.swing.JTextField jtfKwGastos;
     private javax.swing.JTextField jtfNumero;
     // End of variables declaration//GEN-END:variables
 }

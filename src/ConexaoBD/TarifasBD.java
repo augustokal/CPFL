@@ -15,8 +15,8 @@ import java.sql.ResultSet;
  * @author gabri
  */
 public class TarifasBD {
-    
-     public void inserir(Tarifas tarifa) throws Exception {
+
+    public void inserir(Tarifas tarifa) throws Exception {
         Connection con;
         Conexao c = new Conexao();
         con = c.conectar();
@@ -30,37 +30,48 @@ public class TarifasBD {
         con.close();
     }
 
-
-    public void alterar(Tarifas tarifa) throws Exception{
+    public void alterar(Tarifas tarifa) throws Exception {
         Connection con;
         Conexao c = new Conexao();
         con = c.conectar();
         String sql = "UPDATE tarifas SET val_kw=?, val_impost=?, cor=?, porcentagem=?, WHERE id_tarifa=?";
-        PreparedStatement ps = con.prepareStatement(sql);        
+        PreparedStatement ps = con.prepareStatement(sql);
         ps.setDouble(1, tarifa.getVal_kw());
         ps.setDouble(2, tarifa.getVal_imposto());
         ps.setString(3, tarifa.getCor());
         ps.setDouble(4, tarifa.getPorcentagem());
         ps.setInt(5, tarifa.getId_tarifa());
-        ps.execute();     
+        ps.execute();
         con.close();
     }
-    
-        public Tarifas getDados(Tarifas tarifa) throws Exception{
+
+    public Tarifas getDados() throws Exception {
         Connection con;
         Conexao c = new Conexao();
         con = c.conectar();
-        String sql = "SELECT * FROM tarifas WHERE id_tarifa=?";
+
+        String sql = "SELECT MAX(id_tarifa) FROM tarifas";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1,tarifa.getId_tarifa());
+
+        Tarifas tarifa = new Tarifas();
+        
         ResultSet rs = ps.executeQuery();
-        if(rs.next()){
-            tarifa.setVal_kw(rs.getDouble("val_kw"));
-            tarifa.setVal_imposto(rs.getDouble("val_impost"));
-            tarifa.setCor(rs.getString("cor"));
-            tarifa.setPorcentagem(rs.getDouble("porcentagem")); 
+        if (rs.next()) {
+            tarifa.setId_tarifa(rs.getInt("MAX"));
+            
+            sql = "SELECT * FROM tarifas WHERE id_tarifa=?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, tarifa.getId_tarifa());
+            
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                tarifa.setVal_kw(rs.getDouble("val_kw"));
+                tarifa.setVal_imposto(rs.getDouble("val_imposto"));
+                tarifa.setCor(rs.getString("cor"));
+                tarifa.setPorcentagem(rs.getDouble("porcentagem"));
+            }
         }
         con.close();
-        return tarifa;        
-    } 
+        return tarifa;
+    }
 }

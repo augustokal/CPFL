@@ -1,11 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
+import Classes.Endereco;
+import Classes.Faturas;
+import Classes.Tarifas;
+import ConexaoBD.EnderecoBD;
+import ConexaoBD.FaturasBD;
+import ConexaoBD.TarifasBD;
+import TableModel.FaturasTableModel;
+import br.com.parg.viacep.ViaCEP;
+import br.com.parg.viacep.ViaCEPException;
 import java.awt.CardLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.PrintJob;
+import java.awt.Toolkit;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,12 +31,32 @@ import java.awt.CardLayout;
  */
 public class MenuCliente extends javax.swing.JFrame {
 
+    Endereco cliente = new Endereco();
+    EnderecoBD enderecoBD = new EnderecoBD();
+    TarifasBD tarifasBD = new TarifasBD();
+    Tarifas tarifas = new Tarifas();
+
+    FaturasBD faturaBD = new FaturasBD();
+    Faturas fatura = new Faturas();
+
+    FaturasTableModel faturaTM = new FaturasTableModel();
+
     /**
      * Creates new form MenuCliente
      */
-    public MenuCliente() {
+    public MenuCliente(Endereco endereco) {
         initComponents();
+
+        cliente = endereco;
         this.setLocationRelativeTo(null);
+        tarifaAtual();
+        carregarCampos();
+        HabilitarMeuCadastro(false);
+
+        jtFaturas.setModel(faturaTM);
+
+        carregarTable();
+
     }
 
     /**
@@ -36,8 +74,37 @@ public class MenuCliente extends javax.swing.JFrame {
         btnMeuCadastro = new javax.swing.JButton();
         btnFaturas = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        lblBandeira = new javax.swing.JLabel();
         Principal = new javax.swing.JPanel();
         Faturas = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtFaturas = new javax.swing.JTable();
+        Fatura = new javax.swing.JPanel();
+        lblBandFatura = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabelTarifa = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lblValorTotalKw = new javax.swing.JLabel();
+        lblValorKw2 = new javax.swing.JLabel();
+        lblEndereco = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
+        lblBairro = new javax.swing.JLabel();
+        lblCEP = new javax.swing.JLabel();
+        lblValorImposto = new javax.swing.JLabel();
+        lblValorKw6 = new javax.swing.JLabel();
+        lblValorKw7 = new javax.swing.JLabel();
+        lblDataVenc = new javax.swing.JLabel();
+        lblValorKw8 = new javax.swing.JLabel();
+        lblQtdKw = new javax.swing.JLabel();
+        lblPorcentagemBand = new javax.swing.JLabel();
+        lblValorKwPorcentagem = new javax.swing.JLabel();
+        lblQtdKw4 = new javax.swing.JLabel();
+        lblValorKw = new javax.swing.JLabel();
+        lblCidadeUF = new javax.swing.JLabel();
+        lblValorTotal = new javax.swing.JLabel();
+        lblImposto = new javax.swing.JLabel();
+        btnImprimir = new javax.swing.JButton();
         MeuCadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -58,7 +125,6 @@ public class MenuCliente extends javax.swing.JFrame {
         CampoCidade = new javax.swing.JLabel();
         CampoRua3 = new javax.swing.JLabel();
         CampoRua5 = new javax.swing.JLabel();
-        CampoCEP1 = new javax.swing.JLabel();
         CampoBairro1 = new javax.swing.JLabel();
         CampoRua6 = new javax.swing.JLabel();
         CampoRua7 = new javax.swing.JLabel();
@@ -66,9 +132,11 @@ public class MenuCliente extends javax.swing.JFrame {
         CampoUsuario = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         CampoSenha = new javax.swing.JLabel();
-        btnSalvar1 = new javax.swing.JButton();
-        btnEditar1 = new javax.swing.JButton();
-        btnCancelar1 = new javax.swing.JButton();
+        btnSalvarMeuC = new javax.swing.JButton();
+        btnEditarMeuC = new javax.swing.JButton();
+        btnCancelarMeuC = new javax.swing.JButton();
+        CampoRua4 = new javax.swing.JLabel();
+        btnBuscarCEP = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -127,7 +195,11 @@ public class MenuCliente extends javax.swing.JFrame {
             }
         });
         Menu.add(btnSair);
-        btnSair.setBounds(1290, 0, 100, 40);
+        btnSair.setBounds(1260, 0, 100, 40);
+
+        lblBandeira.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblBandeira.setForeground(new java.awt.Color(0, 152, 209));
+        lblBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Verde.png"))); // NOI18N
 
         javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
         MenuSuperior.setLayout(MenuSuperiorLayout);
@@ -136,14 +208,20 @@ public class MenuCliente extends javax.swing.JFrame {
             .addGroup(MenuSuperiorLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1099, Short.MAX_VALUE)
+                .addComponent(lblBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
             .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         MenuSuperiorLayout.setVerticalGroup(
             MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuSuperiorLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(MenuSuperiorLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblBandeira)))
+                .addGap(0, 0, 0)
                 .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -152,17 +230,175 @@ public class MenuCliente extends javax.swing.JFrame {
         Principal.setLayout(new java.awt.CardLayout());
 
         Faturas.setBackground(new java.awt.Color(255, 255, 255));
+        Faturas.setLayout(null);
 
-        javax.swing.GroupLayout FaturasLayout = new javax.swing.GroupLayout(Faturas);
-        Faturas.setLayout(FaturasLayout);
-        FaturasLayout.setHorizontalGroup(
-            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1389, Short.MAX_VALUE)
-        );
-        FaturasLayout.setVerticalGroup(
-            FaturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 605, Short.MAX_VALUE)
-        );
+        jtFaturas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jtFaturas.setGridColor(new java.awt.Color(255, 255, 255));
+        jtFaturas.setShowHorizontalLines(false);
+        jtFaturas.setShowVerticalLines(false);
+        jtFaturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtFaturasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtFaturas);
+
+        Faturas.add(jScrollPane1);
+        jScrollPane1.setBounds(90, 40, 420, 520);
+
+        Fatura.setBackground(new java.awt.Color(204, 204, 255));
+        Fatura.setLayout(null);
+
+        lblBandFatura.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblBandFatura.setText("Cor");
+        lblBandFatura.setToolTipText("");
+        Fatura.add(lblBandFatura);
+        lblBandFatura.setBounds(190, 420, 70, 13);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel10.setText("Impostos");
+        Fatura.add(jLabel10);
+        jLabel10.setBounds(90, 450, 60, 15);
+
+        jLabelTarifa.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabelTarifa.setText("Tarifa/Preço");
+        Fatura.add(jLabelTarifa);
+        jLabelTarifa.setBounds(320, 350, 70, 15);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel14.setText("Consumo Bandeira");
+        Fatura.add(jLabel14);
+        jLabel14.setBounds(90, 420, 100, 15);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jLabel15.setText("Consumo Uso Sistema KWh");
+        Fatura.add(jLabel15);
+        jLabel15.setBounds(90, 390, 150, 15);
+
+        lblValorTotalKw.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorTotalKw.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValorTotalKw.setText("0");
+        Fatura.add(lblValorTotalKw);
+        lblValorTotalKw.setBounds(400, 390, 60, 15);
+
+        lblValorKw2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorKw2.setText("Valor (R$)");
+        Fatura.add(lblValorKw2);
+        lblValorKw2.setBounds(410, 350, 60, 20);
+
+        lblEndereco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblEndereco.setText("Rua, Nº");
+        Fatura.add(lblEndereco);
+        lblEndereco.setBounds(110, 110, 240, 15);
+
+        lblNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblNome.setText("Nome");
+        Fatura.add(lblNome);
+        lblNome.setBounds(110, 90, 240, 15);
+
+        lblBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblBairro.setText("Bairro");
+        Fatura.add(lblBairro);
+        lblBairro.setBounds(110, 130, 240, 15);
+
+        lblCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblCEP.setText("CEP");
+        Fatura.add(lblCEP);
+        lblCEP.setBounds(110, 150, 90, 15);
+
+        lblValorImposto.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorImposto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValorImposto.setText("0");
+        Fatura.add(lblValorImposto);
+        lblValorImposto.setBounds(400, 450, 60, 15);
+
+        lblValorKw6.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorKw6.setText("VENCIMENTO");
+        Fatura.add(lblValorKw6);
+        lblValorKw6.setBounds(270, 240, 90, 20);
+
+        lblValorKw7.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorKw7.setText("TOTAL A PAGAR");
+        Fatura.add(lblValorKw7);
+        lblValorKw7.setBounds(390, 240, 110, 20);
+
+        lblDataVenc.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblDataVenc.setText("Dia/Mês/Ano");
+        Fatura.add(lblDataVenc);
+        lblDataVenc.setBounds(260, 270, 110, 20);
+
+        lblValorKw8.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorKw8.setText("Quantidade");
+        Fatura.add(lblValorKw8);
+        lblValorKw8.setBounds(240, 350, 60, 15);
+
+        lblQtdKw.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblQtdKw.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQtdKw.setText("0");
+        Fatura.add(lblQtdKw);
+        lblQtdKw.setBounds(240, 390, 60, 15);
+
+        lblPorcentagemBand.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblPorcentagemBand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPorcentagemBand.setText("0");
+        Fatura.add(lblPorcentagemBand);
+        lblPorcentagemBand.setBounds(320, 420, 60, 15);
+
+        lblValorKwPorcentagem.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorKwPorcentagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValorKwPorcentagem.setText("0");
+        Fatura.add(lblValorKwPorcentagem);
+        lblValorKwPorcentagem.setBounds(400, 420, 60, 15);
+
+        lblQtdKw4.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblQtdKw4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQtdKw4.setText("0");
+        Fatura.add(lblQtdKw4);
+        lblQtdKw4.setBounds(240, 420, 60, 15);
+
+        lblValorKw.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorKw.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblValorKw.setText("0");
+        Fatura.add(lblValorKw);
+        lblValorKw.setBounds(320, 390, 60, 15);
+
+        lblCidadeUF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblCidadeUF.setText("Cidade/UF");
+        Fatura.add(lblCidadeUF);
+        lblCidadeUF.setBounds(210, 150, 90, 15);
+
+        lblValorTotal.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblValorTotal.setText("R$");
+        Fatura.add(lblValorTotal);
+        lblValorTotal.setBounds(390, 270, 110, 20);
+
+        lblImposto.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblImposto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImposto.setText("0");
+        Fatura.add(lblImposto);
+        lblImposto.setBounds(320, 450, 60, 15);
+
+        Faturas.add(Fatura);
+        Fatura.setBounds(640, 30, 600, 540);
+
+        btnImprimir.setText("jButton1");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        Faturas.add(btnImprimir);
+        btnImprimir.setBounds(1270, 150, 73, 23);
 
         Principal.add(Faturas, "Faturas");
         Faturas.getAccessibleContext().setAccessibleName("");
@@ -198,7 +434,7 @@ public class MenuCliente extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 152, 209));
         jLabel6.setText("CEP:");
         MeuCadastro.add(jLabel6);
-        jLabel6.setBounds(440, 150, 38, 20);
+        jLabel6.setBounds(440, 153, 38, 20);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 152, 209));
@@ -240,7 +476,7 @@ public class MenuCliente extends javax.swing.JFrame {
         jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtfCEP.setBorder(null);
         MeuCadastro.add(jtfCEP);
-        jtfCEP.setBounds(440, 180, 360, 20);
+        jtfCEP.setBounds(440, 180, 260, 20);
 
         jtfBairro.setBackground(new java.awt.Color(235, 235, 235));
         jtfBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -272,15 +508,11 @@ public class MenuCliente extends javax.swing.JFrame {
 
         CampoRua3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoRua3);
-        CampoRua3.setBounds(430, 110, 300, 40);
+        CampoRua3.setBounds(430, 175, 300, 40);
 
         CampoRua5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
         MeuCadastro.add(CampoRua5);
         CampoRua5.setBounds(750, 310, 80, 50);
-
-        CampoCEP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
-        MeuCadastro.add(CampoCEP1);
-        CampoCEP1.setBounds(430, 170, 390, 50);
 
         CampoBairro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         MeuCadastro.add(CampoBairro1);
@@ -314,43 +546,75 @@ public class MenuCliente extends javax.swing.JFrame {
         MeuCadastro.add(CampoSenha);
         CampoSenha.setBounds(430, 430, 390, 50);
 
-        btnSalvar1.setBackground(new java.awt.Color(0, 152, 209));
-        btnSalvar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnSalvar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
-        btnSalvar1.setText("Salvar");
-        btnSalvar1.setBorder(null);
-        btnSalvar1.setBorderPainted(false);
-        btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar1.setEnabled(false);
-        btnSalvar1.setFocusPainted(false);
-        MeuCadastro.add(btnSalvar1);
-        btnSalvar1.setBounds(570, 510, 110, 40);
+        btnSalvarMeuC.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvarMeuC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalvarMeuC.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvarMeuC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
+        btnSalvarMeuC.setText("Salvar");
+        btnSalvarMeuC.setBorder(null);
+        btnSalvarMeuC.setBorderPainted(false);
+        btnSalvarMeuC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvarMeuC.setFocusPainted(false);
+        btnSalvarMeuC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarMeuCActionPerformed(evt);
+            }
+        });
+        MeuCadastro.add(btnSalvarMeuC);
+        btnSalvarMeuC.setBounds(570, 510, 110, 40);
 
-        btnEditar1.setBackground(new java.awt.Color(0, 152, 209));
-        btnEditar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
-        btnEditar1.setText("Editar");
-        btnEditar1.setBorder(null);
-        btnEditar1.setBorderPainted(false);
-        btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar1.setFocusPainted(false);
-        MeuCadastro.add(btnEditar1);
-        btnEditar1.setBounds(450, 510, 110, 40);
+        btnEditarMeuC.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditarMeuC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditarMeuC.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarMeuC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
+        btnEditarMeuC.setText("Editar");
+        btnEditarMeuC.setBorder(null);
+        btnEditarMeuC.setBorderPainted(false);
+        btnEditarMeuC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditarMeuC.setFocusPainted(false);
+        btnEditarMeuC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarMeuCActionPerformed(evt);
+            }
+        });
+        MeuCadastro.add(btnEditarMeuC);
+        btnEditarMeuC.setBounds(450, 510, 110, 40);
 
-        btnCancelar1.setBackground(new java.awt.Color(0, 152, 209));
-        btnCancelar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
-        btnCancelar1.setText("Cancelar");
-        btnCancelar1.setBorder(null);
-        btnCancelar1.setBorderPainted(false);
-        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar1.setEnabled(false);
-        btnCancelar1.setFocusPainted(false);
-        MeuCadastro.add(btnCancelar1);
-        btnCancelar1.setBounds(690, 510, 110, 40);
+        btnCancelarMeuC.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelarMeuC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelarMeuC.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarMeuC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
+        btnCancelarMeuC.setText("Cancelar");
+        btnCancelarMeuC.setBorder(null);
+        btnCancelarMeuC.setBorderPainted(false);
+        btnCancelarMeuC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarMeuC.setFocusPainted(false);
+        btnCancelarMeuC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarMeuCActionPerformed(evt);
+            }
+        });
+        MeuCadastro.add(btnCancelarMeuC);
+        btnCancelarMeuC.setBounds(690, 510, 110, 40);
+
+        CampoRua4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        MeuCadastro.add(CampoRua4);
+        CampoRua4.setBounds(430, 110, 300, 40);
+
+        btnBuscarCEP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnBuscarCEP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconPesquisar.png"))); // NOI18N
+        btnBuscarCEP.setBorder(null);
+        btnBuscarCEP.setBorderPainted(false);
+        btnBuscarCEP.setContentAreaFilled(false);
+        btnBuscarCEP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarCEP.setFocusable(false);
+        btnBuscarCEP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCEPActionPerformed(evt);
+            }
+        });
+        MeuCadastro.add(btnBuscarCEP);
+        btnBuscarCEP.setBounds(730, 170, 60, 40);
 
         Principal.add(MeuCadastro, "meuCadastro");
 
@@ -366,7 +630,7 @@ public class MenuCliente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(MenuSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
         );
 
         pack();
@@ -374,6 +638,7 @@ public class MenuCliente extends javax.swing.JFrame {
 
     private void btnFaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFaturasActionPerformed
         MudarTelaMenu("Faturas");
+        carregarTable();
     }//GEN-LAST:event_btnFaturasActionPerformed
 
     private void btnMeuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMeuCadastroActionPerformed
@@ -381,38 +646,208 @@ public class MenuCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMeuCadastroActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        System.exit(0);
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnEditarMeuCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMeuCActionPerformed
+        HabilitarMeuCadastro(true);
+    }//GEN-LAST:event_btnEditarMeuCActionPerformed
+
+    private void btnSalvarMeuCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarMeuCActionPerformed
+        cliente.setNome(jtfNome.getText());
+        cliente.setCep(jtfCEP.getText());
+        cliente.setRua(jtfRua.getText());
+        cliente.setNum_casa(Integer.parseInt(jtfNum.getText()));
+        cliente.setBairro(jtfBairro.getText());
+        cliente.setCidade(jtfCidade.getText());
+        cliente.setUF(jtfUF.getText());
+        cliente.setUsuario(jtfUsuario.getText());
+        cliente.setSenha(jtfSenha.getText());
+
+        try {
+            enderecoBD.alterar(cliente);
+            JOptionPane.showMessageDialog(this, "Dados alterados com Sucesso!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar dados!\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        HabilitarMeuCadastro(false);
+    }//GEN-LAST:event_btnSalvarMeuCActionPerformed
+
+    private void btnCancelarMeuCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarMeuCActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja cancelar a alteração dos Dados?");
+        if (opcao == 0) {
+            carregarCampos();
+            HabilitarMeuCadastro(false);
+        }
+    }//GEN-LAST:event_btnCancelarMeuCActionPerformed
+
+    private void btnBuscarCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCEPActionPerformed
+        ViaCEP viaCep = new ViaCEP();
+
+        try {
+            viaCep.buscar(jtfCEP.getText());
+
+            jtfRua.setText(viaCep.getLogradouro());
+            jtfBairro.setText(viaCep.getBairro());
+            jtfCidade.setText(viaCep.getLocalidade());
+            jtfUF.setText(viaCep.getUf());
+
+        } catch (ViaCEPException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar CEP.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarCEPActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setJobName(" Print Component ");
+        pj.setPrintable(new Printable() {
+            public int print(Graphics pg, PageFormat pf, int pageNum) {
+                if (pageNum > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+                Graphics2D g2 = (Graphics2D) pg;
+                g2.translate(pf.getImageableX(), pf.getImageableY());
+                Fatura.paint(g2);        // o JPanel aqui
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        if (pj.printDialog() == false) {
+            return;
+        }
+        try {
+            pj.print();
+        } catch (PrinterException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar CEP.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void jtFaturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFaturasMouseClicked
+        fatura = faturaTM.getRowValue(jtFaturas.getSelectedRow());
+
+        //Formata Data
+        Date data = fatura.getDt_venc();
+        Locale local = new Locale("pt", "BR");
+        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy", local);
+        String dataFormatada = formato.format(data);
+
+        lblDataVenc.setText(dataFormatada);
+
+        //Formata Valor Total
+        double preco = fatura.getValorTotal();
+        Locale ptBr = new Locale("pt", "BR");
+        String valoTotal = NumberFormat.getCurrencyInstance(ptBr).format(preco);
+
+        lblValorTotal.setText(valoTotal);
+
+        lblValorImposto.setText("" + fatura.getVal_imposto());
+        lblPorcentagemBand.setText("" + fatura.getPorcentagem());
+        lblQtdKw.setText("" + fatura.getKwGastos());
+
+        double valorGasto = fatura.getKwGastos() * fatura.getVal_kw();
+        lblValorTotalKw.setText("" + fatura.getKwGastos() * fatura.getVal_kw());
+        
+        valorGasto += valorGasto * (fatura.getVal_imposto() / 100);
+        
+        lblValorKwPorcentagem.setText("" + (fatura.getKwGastos() * fatura.getVal_kw()) * (fatura.getPorcentagem() / 100));
+       
+        
+        valorGasto += valorGasto * (fatura.getPorcentagem() / 100);
+        lblValorImposto.setText("" + ((fatura.getKwGastos() * fatura.getVal_kw()) * (fatura.getPorcentagem() / 100)) * (fatura.getVal_imposto() / 100));
+        
+        
+
+
+    }//GEN-LAST:event_jtFaturasMouseClicked
 
     private void MudarTelaMenu(String tela) {
         CardLayout cl = (CardLayout) Principal.getLayout();
         cl.show(Principal, tela);
     }
 
+    private void tarifaAtual() {
+        try {
+            tarifas = tarifasBD.getDados();
+            lblBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/" + tarifas.getCor() + ".png")));
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar tarifas.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void carregarCampos() {
+        jtfNome.setText(cliente.getNome());
+        jtfRua.setText(cliente.getRua());
+        jtfNum.setText("" + cliente.getNum_casa());
+        jtfCEP.setText(cliente.getCep());
+        jtfBairro.setText(cliente.getBairro());
+        jtfCidade.setText(cliente.getCidade());
+        jtfUF.setText(cliente.getUF());
+        jtfUsuario.setText(cliente.getUsuario());
+        jtfSenha.setText(cliente.getSenha());
+
+        lblNome.setText(cliente.getNome());
+        lblEndereco.setText(cliente.getRua() + ", " + cliente.getNum_casa());
+        lblCEP.setText(cliente.getCep());
+        lblBairro.setText(cliente.getBairro());
+        lblCidadeUF.setText(cliente.getCidade() + "/" + cliente.getUF());
+    }
+
+    private void HabilitarMeuCadastro(boolean modo) {
+        jtfNome.setEnabled(modo);
+        jtfCEP.setEnabled(modo);
+        jtfRua.setEnabled(modo);
+        jtfNum.setEnabled(modo);
+        jtfBairro.setEnabled(modo);
+        jtfCidade.setEnabled(modo);
+        jtfUF.setEnabled(modo);
+        jtfUsuario.setEnabled(modo);
+        jtfSenha.setEnabled(modo);
+        btnSalvarMeuC.setEnabled(modo);
+        btnCancelarMeuC.setEnabled(modo);
+        btnEditarMeuC.setEnabled(!modo);
+    }
+
+    private void carregarTable() {
+        FaturasTableModel faturas = (FaturasTableModel) jtFaturas.getModel();
+        try {
+            faturas.setDados(faturaBD.getDados(cliente.getId_usuario()));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar grade.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CampoBairro1;
-    private javax.swing.JLabel CampoCEP1;
     private javax.swing.JLabel CampoCidade;
     private javax.swing.JLabel CampoRua3;
+    private javax.swing.JLabel CampoRua4;
     private javax.swing.JLabel CampoRua5;
     private javax.swing.JLabel CampoRua6;
     private javax.swing.JLabel CampoRua7;
     private javax.swing.JLabel CampoSenha;
     private javax.swing.JLabel CampoUsuario;
+    private javax.swing.JPanel Fatura;
     private javax.swing.JPanel Faturas;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel MenuSuperior;
     private javax.swing.JPanel MeuCadastro;
     private javax.swing.JPanel Principal;
-    private javax.swing.JButton btnCancelar1;
-    private javax.swing.JButton btnEditar1;
+    private javax.swing.JButton btnBuscarCEP;
+    private javax.swing.JButton btnCancelarMeuC;
+    private javax.swing.JButton btnEditarMeuC;
     private javax.swing.JButton btnFaturas;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnMeuCadastro;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton btnSalvar1;
+    private javax.swing.JButton btnSalvarMeuC;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -420,6 +855,9 @@ public class MenuCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelTarifa;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jtFaturas;
     private javax.swing.JTextField jtfBairro;
     private javax.swing.JTextField jtfCEP;
     private javax.swing.JTextField jtfCidade;
@@ -429,5 +867,26 @@ public class MenuCliente extends javax.swing.JFrame {
     private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JTextField jtfUF;
     private javax.swing.JTextField jtfUsuario;
+    private javax.swing.JLabel lblBairro;
+    private javax.swing.JLabel lblBandFatura;
+    private javax.swing.JLabel lblBandeira;
+    private javax.swing.JLabel lblCEP;
+    private javax.swing.JLabel lblCidadeUF;
+    private javax.swing.JLabel lblDataVenc;
+    private javax.swing.JLabel lblEndereco;
+    private javax.swing.JLabel lblImposto;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblPorcentagemBand;
+    private javax.swing.JLabel lblQtdKw;
+    private javax.swing.JLabel lblQtdKw4;
+    private javax.swing.JLabel lblValorImposto;
+    private javax.swing.JLabel lblValorKw;
+    private javax.swing.JLabel lblValorKw2;
+    private javax.swing.JLabel lblValorKw6;
+    private javax.swing.JLabel lblValorKw7;
+    private javax.swing.JLabel lblValorKw8;
+    private javax.swing.JLabel lblValorKwPorcentagem;
+    private javax.swing.JLabel lblValorTotal;
+    private javax.swing.JLabel lblValorTotalKw;
     // End of variables declaration//GEN-END:variables
 }

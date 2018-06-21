@@ -6,11 +6,17 @@
 package View;
 
 import Classes.Endereco;
+import Classes.Tarifas;
+import ConexaoBD.EnderecoBD;
+import ConexaoBD.TarifasBD;
+import TableModel.FuncionarioTableModel;
 import br.com.parg.viacep.ViaCEP;
 import br.com.parg.viacep.ViaCEPException;
 import java.awt.CardLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,12 +27,26 @@ public class MenuGerente extends javax.swing.JFrame {
     /**
      * Creates new form MenuCliente
      */
-    Endereco endereco = new Endereco();
-    
+    FuncionarioTableModel funTM = new FuncionarioTableModel();
+
+    Endereco userLogado = new Endereco();
+    Endereco endUser = new Endereco();
+    EnderecoBD enderecoBD = new EnderecoBD();
+
+    TarifasBD tarifasBD = new TarifasBD();
+    Tarifas tarifas = new Tarifas();
+
     public MenuGerente(Endereco end) {
-        endereco = end;
         initComponents();
         this.setLocationRelativeTo(null);
+
+        userLogado = end;
+        jtFuncionarios.setModel(funTM);
+        tarifaAtual();
+        carregarTableFunc();
+        ManipularInterfaceFunc("Navegação");
+        HabilitarCamposTarifas(false);
+        HabilitarMeuCadastro(false);
         carregarCampos();
     }
 
@@ -47,10 +67,10 @@ public class MenuGerente extends javax.swing.JFrame {
         btnFuncionarios = new javax.swing.JButton();
         btnTarifas = new javax.swing.JButton();
         btnMeuCadastro = new javax.swing.JButton();
+        lblBandeira = new javax.swing.JLabel();
         Principal = new javax.swing.JPanel();
         Inicio = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         Funcionarios = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -59,10 +79,9 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        btnBuscarCEPfunc = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtFuncionarios = new javax.swing.JTable();
         jtfNumFunc = new javax.swing.JTextField();
         jtfNomeFunc = new javax.swing.JTextField();
         jtfUfFunc = new javax.swing.JTextField();
@@ -74,31 +93,37 @@ public class MenuGerente extends javax.swing.JFrame {
         jtfSenhaFunc = new javax.swing.JPasswordField();
         CampoCidade = new javax.swing.JLabel();
         CampoSenha = new javax.swing.JLabel();
-        CampoRua3 = new javax.swing.JLabel();
-        CampoRua5 = new javax.swing.JLabel();
-        CampoCEP1 = new javax.swing.JLabel();
-        CampoBairro1 = new javax.swing.JLabel();
+        CampoCEP = new javax.swing.JLabel();
+        CampoUF = new javax.swing.JLabel();
+        CampoBairro = new javax.swing.JLabel();
         CampoUsuario = new javax.swing.JLabel();
-        CampoRua6 = new javax.swing.JLabel();
-        CampoRua7 = new javax.swing.JLabel();
-        btnSalvar2 = new javax.swing.JButton();
-        btnEditar2 = new javax.swing.JButton();
-        btnCancelar2 = new javax.swing.JButton();
+        CampoNome = new javax.swing.JLabel();
+        CampoNum = new javax.swing.JLabel();
+        btnSalvarFunc = new javax.swing.JButton();
+        btnEditarFunc = new javax.swing.JButton();
+        btnCancelarFunc = new javax.swing.JButton();
+        CampoRua12 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtFuncionarios = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        cbCargo = new javax.swing.JComboBox<>();
+        btnNovoFunc = new javax.swing.JButton();
         Tarifas = new javax.swing.JPanel();
-        jtfRua1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        CampoBandeira = new javax.swing.JLabel();
+        jtfPorcentagem = new javax.swing.JLabel();
+        jtfValorKW = new javax.swing.JTextField();
+        jtfImposto = new javax.swing.JTextField();
+        cbBandeira = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        CampoBandeira2 = new javax.swing.JLabel();
-        CampoBandeira1 = new javax.swing.JLabel();
+        CampoImposto = new javax.swing.JLabel();
+        CampoKw = new javax.swing.JLabel();
+        btnSalvarTarifas = new javax.swing.JButton();
+        btnEditarTarifas = new javax.swing.JButton();
+        btnCancelarTarifas = new javax.swing.JButton();
+        CampoKw1 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        CampoBandeira3 = new javax.swing.JLabel();
-        btnSalvar3 = new javax.swing.JButton();
-        btnEditar3 = new javax.swing.JButton();
-        btnCancelar3 = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
         MeuCadastro = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -126,16 +151,15 @@ public class MenuGerente extends javax.swing.JFrame {
         CampoUsuario1 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         CampoSenha1 = new javax.swing.JLabel();
-        btnCancelar1 = new javax.swing.JButton();
-        btnEditar1 = new javax.swing.JButton();
-        btnSalvar1 = new javax.swing.JButton();
+        btnCancelarMeuC = new javax.swing.JButton();
+        btnEditarMeuC = new javax.swing.JButton();
+        btnSalvarMeuC = new javax.swing.JButton();
         CampoRua11 = new javax.swing.JLabel();
         btnBuscarCEP = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 153));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1369, 730));
         setResizable(false);
 
         MenuSuperior.setBackground(new java.awt.Color(255, 255, 255));
@@ -225,6 +249,10 @@ public class MenuGerente extends javax.swing.JFrame {
         Menu.add(btnMeuCadastro);
         btnMeuCadastro.setBounds(560, 0, 190, 40);
 
+        lblBandeira.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblBandeira.setForeground(new java.awt.Color(0, 152, 209));
+        lblBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Verde.png"))); // NOI18N
+
         javax.swing.GroupLayout MenuSuperiorLayout = new javax.swing.GroupLayout(MenuSuperior);
         MenuSuperior.setLayout(MenuSuperiorLayout);
         MenuSuperiorLayout.setHorizontalGroup(
@@ -232,24 +260,27 @@ public class MenuGerente extends javax.swing.JFrame {
             .addGroup(MenuSuperiorLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         MenuSuperiorLayout.setVerticalGroup(
             MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuSuperiorLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lblBandeira, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         Principal.setBackground(new java.awt.Color(255, 255, 255));
+        Principal.setPreferredSize(new java.awt.Dimension(1369, 588));
         Principal.setLayout(new java.awt.CardLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Principal.png"))); // NOI18N
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Principal.png"))); // NOI18N
 
         javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
         Inicio.setLayout(InicioLayout);
@@ -260,11 +291,6 @@ public class MenuGerente extends javax.swing.JFrame {
                 .addGroup(InicioLayout.createSequentialGroup()
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1384, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(InicioLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         InicioLayout.setVerticalGroup(
             InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,11 +298,6 @@ public class MenuGerente extends javax.swing.JFrame {
             .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(InicioLayout.createSequentialGroup()
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(InicioLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -289,55 +310,208 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 152, 209));
         jLabel4.setText("UF:");
         Funcionarios.add(jLabel4);
-        jLabel4.setBounds(350, 290, 30, 20);
+        jLabel4.setBounds(390, 280, 30, 20);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 152, 209));
         jLabel5.setText("Nome:");
         Funcionarios.add(jLabel5);
-        jLabel5.setBounds(30, 28, 38, 15);
+        jLabel5.setBounds(70, 30, 38, 15);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 152, 209));
         jLabel6.setText("Rua:");
         Funcionarios.add(jLabel6);
-        jLabel6.setBounds(30, 95, 38, 15);
+        jLabel6.setBounds(68, 155, 38, 15);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 152, 209));
         jLabel7.setText("Nº:");
         Funcionarios.add(jLabel7);
-        jLabel7.setBounds(345, 95, 38, 15);
+        jLabel7.setBounds(390, 155, 38, 15);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 152, 209));
         jLabel8.setText("CEP:");
         Funcionarios.add(jLabel8);
-        jLabel8.setBounds(30, 155, 38, 20);
+        jLabel8.setBounds(70, 90, 38, 20);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 152, 209));
         jLabel9.setText("Bairro:");
         Funcionarios.add(jLabel9);
-        jLabel9.setBounds(30, 220, 60, 15);
+        jLabel9.setBounds(70, 220, 60, 15);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 152, 209));
         jLabel10.setText("Cidade:");
         Funcionarios.add(jLabel10);
-        jLabel10.setBounds(30, 290, 60, 15);
+        jLabel10.setBounds(70, 280, 60, 15);
+
+        btnBuscarCEPfunc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnBuscarCEPfunc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconPesquisar.png"))); // NOI18N
+        btnBuscarCEPfunc.setBorder(null);
+        btnBuscarCEPfunc.setBorderPainted(false);
+        btnBuscarCEPfunc.setContentAreaFilled(false);
+        btnBuscarCEPfunc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarCEPfunc.setFocusable(false);
+        btnBuscarCEPfunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCEPfuncActionPerformed(evt);
+            }
+        });
+        Funcionarios.add(btnBuscarCEPfunc);
+        btnBuscarCEPfunc.setBounds(360, 100, 60, 40);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel11.setText("Usuário:");
+        jLabel11.setText("Cargo:");
         Funcionarios.add(jLabel11);
-        jLabel11.setBounds(30, 360, 60, 15);
+        jLabel11.setBounds(70, 340, 60, 15);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 152, 209));
         jLabel12.setText("Senha:");
         Funcionarios.add(jLabel12);
-        jLabel12.setBounds(30, 420, 60, 15);
+        jLabel12.setBounds(70, 450, 60, 15);
+
+        jtfNumFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNumFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNumFunc.setBorder(null);
+        Funcionarios.add(jtfNumFunc);
+        jtfNumFunc.setBounds(390, 175, 50, 20);
+
+        jtfNomeFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfNomeFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNomeFunc.setBorder(null);
+        Funcionarios.add(jtfNomeFunc);
+        jtfNomeFunc.setBounds(80, 50, 350, 20);
+
+        jtfUfFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUfFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUfFunc.setBorder(null);
+        Funcionarios.add(jtfUfFunc);
+        jtfUfFunc.setBounds(390, 305, 50, 20);
+
+        jtfRuaFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfRuaFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfRuaFunc.setBorder(null);
+        Funcionarios.add(jtfRuaFunc);
+        jtfRuaFunc.setBounds(80, 175, 260, 20);
+
+        jtfCEPFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCEPFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCEPFunc.setBorder(null);
+        Funcionarios.add(jtfCEPFunc);
+        jtfCEPFunc.setBounds(80, 115, 260, 20);
+
+        jtfBairroFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfBairroFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfBairroFunc.setBorder(null);
+        Funcionarios.add(jtfBairroFunc);
+        jtfBairroFunc.setBounds(80, 240, 350, 20);
+
+        jtfCidadeFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfCidadeFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCidadeFunc.setBorder(null);
+        Funcionarios.add(jtfCidadeFunc);
+        jtfCidadeFunc.setBounds(80, 305, 260, 20);
+
+        jtfUsuarioFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfUsuarioFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUsuarioFunc.setBorder(null);
+        Funcionarios.add(jtfUsuarioFunc);
+        jtfUsuarioFunc.setBounds(70, 420, 360, 20);
+
+        jtfSenhaFunc.setBackground(new java.awt.Color(235, 235, 235));
+        jtfSenhaFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfSenhaFunc.setBorder(null);
+        Funcionarios.add(jtfSenhaFunc);
+        jtfSenhaFunc.setBounds(70, 470, 360, 20);
+
+        CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Funcionarios.add(CampoCidade);
+        CampoCidade.setBounds(62, 300, 300, 40);
+
+        CampoSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoSenha);
+        CampoSenha.setBounds(60, 460, 390, 50);
+
+        CampoCEP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Funcionarios.add(CampoCEP);
+        CampoCEP.setBounds(62, 110, 300, 40);
+
+        CampoUF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
+        Funcionarios.add(CampoUF);
+        CampoUF.setBounds(380, 295, 80, 50);
+
+        CampoBairro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoBairro);
+        CampoBairro.setBounds(60, 230, 390, 50);
+
+        CampoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoUsuario);
+        CampoUsuario.setBounds(60, 410, 390, 50);
+
+        CampoNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
+        Funcionarios.add(CampoNome);
+        CampoNome.setBounds(60, 40, 390, 50);
+
+        CampoNum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
+        Funcionarios.add(CampoNum);
+        CampoNum.setBounds(380, 165, 80, 50);
+
+        btnSalvarFunc.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvarFunc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalvarFunc.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvarFunc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
+        btnSalvarFunc.setText("Salvar");
+        btnSalvarFunc.setBorderPainted(false);
+        btnSalvarFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvarFunc.setFocusPainted(false);
+        btnSalvarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarFuncActionPerformed(evt);
+            }
+        });
+        Funcionarios.add(btnSalvarFunc);
+        btnSalvarFunc.setBounds(260, 520, 110, 40);
+
+        btnEditarFunc.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditarFunc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditarFunc.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarFunc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
+        btnEditarFunc.setText("Editar");
+        btnEditarFunc.setBorderPainted(false);
+        btnEditarFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditarFunc.setFocusPainted(false);
+        btnEditarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarFuncActionPerformed(evt);
+            }
+        });
+        Funcionarios.add(btnEditarFunc);
+        btnEditarFunc.setBounds(140, 520, 110, 40);
+
+        btnCancelarFunc.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelarFunc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelarFunc.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarFunc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
+        btnCancelarFunc.setText("Cancelar");
+        btnCancelarFunc.setBorderPainted(false);
+        btnCancelarFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarFunc.setFocusPainted(false);
+        btnCancelarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarFuncActionPerformed(evt);
+            }
+        });
+        Funcionarios.add(btnCancelarFunc);
+        btnCancelarFunc.setBounds(380, 520, 130, 40);
+
+        CampoRua12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Funcionarios.add(CampoRua12);
+        CampoRua12.setBounds(62, 170, 300, 40);
 
         jtFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -350,221 +524,174 @@ public class MenuGerente extends javax.swing.JFrame {
 
             }
         ));
+        jtFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtFuncionariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtFuncionarios);
 
         Funcionarios.add(jScrollPane1);
-        jScrollPane1.setBounds(440, 30, 910, 530);
+        jScrollPane1.setBounds(520, 20, 830, 550);
 
-        jtfNumFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfNumFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfNumFunc);
-        jtfNumFunc.setBounds(350, 120, 50, 20);
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel13.setText("Usuário:");
+        Funcionarios.add(jLabel13);
+        jLabel13.setBounds(70, 395, 60, 15);
 
-        jtfNomeFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfNomeFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfNomeFunc);
-        jtfNomeFunc.setBounds(30, 50, 360, 20);
+        cbCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerente", "Medidor" }));
+        cbCargo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        Funcionarios.add(cbCargo);
+        cbCargo.setBounds(70, 360, 370, 30);
 
-        jtfUfFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfUfFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfUfFunc);
-        jtfUfFunc.setBounds(350, 320, 50, 20);
-
-        jtfRuaFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfRuaFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfRuaFunc);
-        jtfRuaFunc.setBounds(35, 118, 240, 20);
-
-        jtfCEPFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfCEPFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfCEPFunc);
-        jtfCEPFunc.setBounds(30, 180, 360, 20);
-
-        jtfBairroFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfBairroFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfBairroFunc);
-        jtfBairroFunc.setBounds(30, 240, 360, 20);
-
-        jtfCidadeFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfCidadeFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfCidadeFunc);
-        jtfCidadeFunc.setBounds(30, 320, 250, 20);
-
-        jtfUsuarioFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfUsuarioFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfUsuarioFunc);
-        jtfUsuarioFunc.setBounds(30, 380, 360, 20);
-
-        jtfSenhaFunc.setBackground(new java.awt.Color(235, 235, 235));
-        jtfSenhaFunc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Funcionarios.add(jtfSenhaFunc);
-        jtfSenhaFunc.setBounds(40, 440, 350, 20);
-
-        CampoCidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Funcionarios.add(CampoCidade);
-        CampoCidade.setBounds(20, 310, 300, 40);
-
-        CampoSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
-        Funcionarios.add(CampoSenha);
-        CampoSenha.setBounds(20, 430, 390, 50);
-
-        CampoRua3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Funcionarios.add(CampoRua3);
-        CampoRua3.setBounds(20, 110, 300, 40);
-
-        CampoRua5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
-        Funcionarios.add(CampoRua5);
-        CampoRua5.setBounds(340, 310, 80, 50);
-
-        CampoCEP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
-        Funcionarios.add(CampoCEP1);
-        CampoCEP1.setBounds(20, 170, 390, 50);
-
-        CampoBairro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
-        Funcionarios.add(CampoBairro1);
-        CampoBairro1.setBounds(20, 230, 390, 50);
-
-        CampoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
-        Funcionarios.add(CampoUsuario);
-        CampoUsuario.setBounds(20, 370, 390, 50);
-
-        CampoRua6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
-        Funcionarios.add(CampoRua6);
-        CampoRua6.setBounds(20, 40, 390, 50);
-
-        CampoRua7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
-        Funcionarios.add(CampoRua7);
-        CampoRua7.setBounds(340, 110, 80, 50);
-
-        btnSalvar2.setBackground(new java.awt.Color(0, 152, 209));
-        btnSalvar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnSalvar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
-        btnSalvar2.setText("Salvar");
-        btnSalvar2.setBorderPainted(false);
-        btnSalvar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar2.setFocusPainted(false);
-        Funcionarios.add(btnSalvar2);
-        btnSalvar2.setBounds(40, 500, 110, 40);
-
-        btnEditar2.setBackground(new java.awt.Color(0, 152, 209));
-        btnEditar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnEditar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
-        btnEditar2.setText("Editar");
-        btnEditar2.setBorderPainted(false);
-        btnEditar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar2.setFocusPainted(false);
-        Funcionarios.add(btnEditar2);
-        btnEditar2.setBounds(160, 500, 110, 40);
-
-        btnCancelar2.setBackground(new java.awt.Color(0, 152, 209));
-        btnCancelar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
-        btnCancelar2.setText("Cancelar");
-        btnCancelar2.setBorderPainted(false);
-        btnCancelar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar2.setFocusPainted(false);
-        Funcionarios.add(btnCancelar2);
-        btnCancelar2.setBounds(280, 500, 110, 40);
+        btnNovoFunc.setBackground(new java.awt.Color(0, 152, 209));
+        btnNovoFunc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnNovoFunc.setForeground(new java.awt.Color(255, 255, 255));
+        btnNovoFunc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconNovo.png"))); // NOI18N
+        btnNovoFunc.setText("Novo");
+        btnNovoFunc.setBorderPainted(false);
+        btnNovoFunc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNovoFunc.setFocusPainted(false);
+        btnNovoFunc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnNovoFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoFuncActionPerformed(evt);
+            }
+        });
+        Funcionarios.add(btnNovoFunc);
+        btnNovoFunc.setBounds(20, 520, 110, 40);
 
         Principal.add(Funcionarios, "funcionarios");
 
         Tarifas.setBackground(new java.awt.Color(255, 255, 255));
         Tarifas.setLayout(null);
+        Tarifas.add(jtfPorcentagem);
+        jtfPorcentagem.setBounds(650, 195, 270, 20);
 
-        jtfRua1.setBackground(new java.awt.Color(235, 235, 235));
-        jtfRua1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Tarifas.add(jtfRua1);
-        jtfRua1.setBounds(330, 290, 270, 20);
+        jtfValorKW.setBackground(new java.awt.Color(235, 235, 235));
+        jtfValorKW.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfValorKW.setBorder(null);
+        Tarifas.add(jtfValorKW);
+        jtfValorKW.setBounds(340, 285, 270, 20);
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verde", "Amarela ", "Vermelha" }));
-        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        Tarifas.add(jComboBox1);
-        jComboBox1.setBounds(330, 190, 290, 30);
+        jtfImposto.setBackground(new java.awt.Color(235, 235, 235));
+        jtfImposto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfImposto.setBorder(null);
+        Tarifas.add(jtfImposto);
+        jtfImposto.setBounds(650, 285, 270, 20);
 
-        CampoBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
-        Tarifas.add(CampoBandeira);
-        CampoBandeira.setBounds(670, 280, 80, 40);
+        cbBandeira.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbBandeira.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Verde", "Amarela", "Vermelha" }));
+        cbBandeira.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        cbBandeira.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbBandeiraMouseClicked(evt);
+            }
+        });
+        cbBandeira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBandeiraActionPerformed(evt);
+            }
+        });
+        cbBandeira.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cbBandeiraPropertyChange(evt);
+            }
+        });
+        Tarifas.add(cbBandeira);
+        cbBandeira.setBounds(330, 190, 290, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel14.setText("Bandeira: ");
+        jLabel14.setText("Porcentagem: ");
         Tarifas.add(jLabel14);
-        jLabel14.setBounds(330, 170, 100, 20);
+        jLabel14.setBounds(640, 170, 100, 20);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 152, 209));
         jLabel15.setText("Valor Imposto:");
         Tarifas.add(jLabel15);
-        jLabel15.setBounds(640, 160, 100, 20);
+        jLabel15.setBounds(640, 260, 100, 20);
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel16.setText("Valor kWh:");
-        Tarifas.add(jLabel16);
-        jLabel16.setBounds(330, 260, 100, 20);
+        CampoImposto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Tarifas.add(CampoImposto);
+        CampoImposto.setBounds(640, 280, 300, 40);
 
-        CampoBandeira2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Tarifas.add(CampoBandeira2);
-        CampoBandeira2.setBounds(640, 190, 300, 40);
+        CampoKw.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Tarifas.add(CampoKw);
+        CampoKw.setBounds(640, 190, 300, 40);
 
-        CampoBandeira1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
-        Tarifas.add(CampoBandeira1);
-        CampoBandeira1.setBounds(320, 280, 300, 40);
+        btnSalvarTarifas.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvarTarifas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalvarTarifas.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvarTarifas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
+        btnSalvarTarifas.setText("Salvar");
+        btnSalvarTarifas.setBorderPainted(false);
+        btnSalvarTarifas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvarTarifas.setFocusPainted(false);
+        btnSalvarTarifas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarTarifasActionPerformed(evt);
+            }
+        });
+        Tarifas.add(btnSalvarTarifas);
+        btnSalvarTarifas.setBounds(560, 340, 110, 40);
+
+        btnEditarTarifas.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditarTarifas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditarTarifas.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarTarifas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
+        btnEditarTarifas.setText("Editar");
+        btnEditarTarifas.setBorderPainted(false);
+        btnEditarTarifas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditarTarifas.setFocusPainted(false);
+        btnEditarTarifas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarTarifasActionPerformed(evt);
+            }
+        });
+        Tarifas.add(btnEditarTarifas);
+        btnEditarTarifas.setBounds(440, 340, 110, 40);
+
+        btnCancelarTarifas.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelarTarifas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelarTarifas.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarTarifas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
+        btnCancelarTarifas.setText("Cancelar");
+        btnCancelarTarifas.setBorderPainted(false);
+        btnCancelarTarifas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarTarifas.setFocusPainted(false);
+        btnCancelarTarifas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarTarifasActionPerformed(evt);
+            }
+        });
+        Tarifas.add(btnCancelarTarifas);
+        btnCancelarTarifas.setBounds(680, 340, 140, 40);
+
+        CampoKw1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
+        Tarifas.add(CampoKw1);
+        CampoKw1.setBounds(330, 280, 300, 40);
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel26.setText("Mês:");
+        jLabel26.setText("Bandeira: ");
         Tarifas.add(jLabel26);
-        jLabel26.setBounds(670, 260, 100, 20);
+        jLabel26.setBounds(330, 170, 100, 20);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 152, 209));
-        jLabel27.setText("Ano:");
+        jLabel27.setText("Valor kWh:");
         Tarifas.add(jLabel27);
-        jLabel27.setBounds(800, 260, 100, 20);
+        jLabel27.setBounds(330, 260, 100, 20);
 
-        CampoBandeira3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
-        Tarifas.add(CampoBandeira3);
-        CampoBandeira3.setBounds(800, 280, 80, 40);
-
-        btnSalvar3.setBackground(new java.awt.Color(0, 152, 209));
-        btnSalvar3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnSalvar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
-        btnSalvar3.setText("Salvar");
-        btnSalvar3.setBorderPainted(false);
-        btnSalvar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar3.setEnabled(false);
-        btnSalvar3.setFocusPainted(false);
-        Tarifas.add(btnSalvar3);
-        btnSalvar3.setBounds(590, 370, 110, 40);
-
-        btnEditar3.setBackground(new java.awt.Color(0, 152, 209));
-        btnEditar3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnEditar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
-        btnEditar3.setText("Editar");
-        btnEditar3.setBorderPainted(false);
-        btnEditar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar3.setFocusPainted(false);
-        Tarifas.add(btnEditar3);
-        btnEditar3.setBounds(470, 370, 110, 40);
-
-        btnCancelar3.setBackground(new java.awt.Color(0, 152, 209));
-        btnCancelar3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
-        btnCancelar3.setText("Cancelar");
-        btnCancelar3.setBorderPainted(false);
-        btnCancelar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar3.setEnabled(false);
-        btnCancelar3.setFocusPainted(false);
-        Tarifas.add(btnCancelar3);
-        btnCancelar3.setBounds(710, 370, 110, 40);
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(0, 152, 209));
+        jLabel28.setText("Valor kWh:");
+        Tarifas.add(jLabel28);
+        jLabel28.setBounds(330, 260, 100, 20);
 
         Principal.add(Tarifas, "tarifas");
 
@@ -575,7 +702,7 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(0, 152, 209));
         jLabel17.setText("UF:");
         MeuCadastro.add(jLabel17);
-        jLabel17.setBounds(760, 290, 30, 20);
+        jLabel17.setBounds(760, 280, 30, 20);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 152, 209));
@@ -587,92 +714,101 @@ public class MenuGerente extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(0, 152, 209));
         jLabel19.setText("Rua:");
         MeuCadastro.add(jLabel19);
-        jLabel19.setBounds(440, 90, 38, 15);
+        jLabel19.setBounds(440, 153, 38, 15);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 152, 209));
         jLabel20.setText("Nº:");
         MeuCadastro.add(jLabel20);
-        jLabel20.setBounds(750, 90, 38, 15);
+        jLabel20.setBounds(750, 153, 38, 15);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 152, 209));
         jLabel21.setText("CEP:");
         MeuCadastro.add(jLabel21);
-        jLabel21.setBounds(440, 150, 38, 20);
+        jLabel21.setBounds(440, 90, 38, 20);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 152, 209));
         jLabel22.setText("Bairro:");
         MeuCadastro.add(jLabel22);
-        jLabel22.setBounds(440, 230, 60, 15);
+        jLabel22.setBounds(440, 220, 60, 15);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 152, 209));
         jLabel23.setText("Cidade:");
         MeuCadastro.add(jLabel23);
-        jLabel23.setBounds(440, 290, 60, 15);
+        jLabel23.setBounds(440, 280, 60, 15);
 
         jtfNum.setBackground(new java.awt.Color(235, 235, 235));
         jtfNum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNum.setBorder(null);
         MeuCadastro.add(jtfNum);
-        jtfNum.setBounds(760, 120, 50, 20);
+        jtfNum.setBounds(760, 175, 50, 20);
 
         jtfNome.setBackground(new java.awt.Color(235, 235, 235));
         jtfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfNome.setBorder(null);
         MeuCadastro.add(jtfNome);
         jtfNome.setBounds(440, 50, 360, 20);
 
         jtfUF.setBackground(new java.awt.Color(235, 235, 235));
         jtfUF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUF.setBorder(null);
         MeuCadastro.add(jtfUF);
-        jtfUF.setBounds(760, 320, 50, 20);
+        jtfUF.setBounds(760, 305, 50, 20);
 
         jtfRua.setBackground(new java.awt.Color(235, 235, 235));
         jtfRua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfRua.setBorder(null);
         MeuCadastro.add(jtfRua);
-        jtfRua.setBounds(440, 120, 240, 20);
+        jtfRua.setBounds(440, 175, 270, 20);
 
         jtfCEP.setBackground(new java.awt.Color(235, 235, 235));
         jtfCEP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCEP.setBorder(null);
         MeuCadastro.add(jtfCEP);
-        jtfCEP.setBounds(440, 180, 270, 20);
+        jtfCEP.setBounds(440, 115, 270, 20);
 
         jtfBairro.setBackground(new java.awt.Color(235, 235, 235));
         jtfBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfBairro.setBorder(null);
         MeuCadastro.add(jtfBairro);
-        jtfBairro.setBounds(440, 250, 360, 20);
+        jtfBairro.setBounds(440, 240, 360, 20);
 
         jtfCidade.setBackground(new java.awt.Color(235, 235, 235));
         jtfCidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfCidade.setBorder(null);
         MeuCadastro.add(jtfCidade);
-        jtfCidade.setBounds(440, 315, 270, 20);
+        jtfCidade.setBounds(440, 305, 270, 20);
 
         jtfUsuario.setBackground(new java.awt.Color(235, 235, 235));
         jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfUsuario.setBorder(null);
         MeuCadastro.add(jtfUsuario);
         jtfUsuario.setBounds(440, 380, 360, 20);
 
         jtfSenha.setBackground(new java.awt.Color(235, 235, 235));
         jtfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfSenha.setBorder(null);
         MeuCadastro.add(jtfSenha);
-        jtfSenha.setBounds(450, 440, 350, 20);
+        jtfSenha.setBounds(440, 440, 360, 20);
 
         CampoCidade1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoCidade1);
-        CampoCidade1.setBounds(430, 310, 300, 40);
+        CampoCidade1.setBounds(432, 300, 300, 40);
 
         CampoRua4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoRua4);
-        CampoRua4.setBounds(430, 170, 300, 40);
+        CampoRua4.setBounds(432, 110, 300, 40);
 
         CampoRua8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
         MeuCadastro.add(CampoRua8);
-        CampoRua8.setBounds(750, 310, 80, 50);
+        CampoRua8.setBounds(750, 295, 80, 50);
 
         CampoBairro2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         MeuCadastro.add(CampoBairro2);
-        CampoBairro2.setBounds(430, 240, 390, 50);
+        CampoBairro2.setBounds(430, 230, 390, 50);
 
         CampoRua9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoMaior.png"))); // NOI18N
         MeuCadastro.add(CampoRua9);
@@ -680,7 +816,7 @@ public class MenuGerente extends javax.swing.JFrame {
 
         CampoRua10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campoPequeno.png"))); // NOI18N
         MeuCadastro.add(CampoRua10);
-        CampoRua10.setBounds(750, 110, 80, 50);
+        CampoRua10.setBounds(750, 165, 80, 50);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 152, 209));
@@ -702,60 +838,72 @@ public class MenuGerente extends javax.swing.JFrame {
         MeuCadastro.add(CampoSenha1);
         CampoSenha1.setBounds(430, 430, 390, 50);
 
-        btnCancelar1.setBackground(new java.awt.Color(0, 152, 209));
-        btnCancelar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
-        btnCancelar1.setText("Cancelar");
-        btnCancelar1.setBorderPainted(false);
-        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar1.setEnabled(false);
-        btnCancelar1.setFocusPainted(false);
-        MeuCadastro.add(btnCancelar1);
-        btnCancelar1.setBounds(700, 500, 110, 40);
-
-        btnEditar1.setBackground(new java.awt.Color(0, 152, 209));
-        btnEditar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
-        btnEditar1.setText("Editar");
-        btnEditar1.setBorderPainted(false);
-        btnEditar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar1.setFocusPainted(false);
-        MeuCadastro.add(btnEditar1);
-        btnEditar1.setBounds(460, 500, 110, 40);
-
-        btnSalvar1.setBackground(new java.awt.Color(0, 152, 209));
-        btnSalvar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnSalvar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
-        btnSalvar1.setText("Salvar");
-        btnSalvar1.setBorderPainted(false);
-        btnSalvar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalvar1.setEnabled(false);
-        btnSalvar1.setFocusPainted(false);
-        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelarMeuC.setBackground(new java.awt.Color(0, 152, 209));
+        btnCancelarMeuC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelarMeuC.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarMeuC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconCancelar.png"))); // NOI18N
+        btnCancelarMeuC.setText("Cancelar");
+        btnCancelarMeuC.setBorderPainted(false);
+        btnCancelarMeuC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarMeuC.setFocusPainted(false);
+        btnCancelarMeuC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvar1ActionPerformed(evt);
+                btnCancelarMeuCActionPerformed(evt);
             }
         });
-        MeuCadastro.add(btnSalvar1);
-        btnSalvar1.setBounds(580, 500, 110, 40);
+        MeuCadastro.add(btnCancelarMeuC);
+        btnCancelarMeuC.setBounds(690, 500, 130, 40);
+
+        btnEditarMeuC.setBackground(new java.awt.Color(0, 152, 209));
+        btnEditarMeuC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditarMeuC.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarMeuC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconEditar.png"))); // NOI18N
+        btnEditarMeuC.setText("Editar");
+        btnEditarMeuC.setBorderPainted(false);
+        btnEditarMeuC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditarMeuC.setFocusPainted(false);
+        btnEditarMeuC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarMeuCActionPerformed(evt);
+            }
+        });
+        MeuCadastro.add(btnEditarMeuC);
+        btnEditarMeuC.setBounds(450, 500, 110, 40);
+
+        btnSalvarMeuC.setBackground(new java.awt.Color(0, 152, 209));
+        btnSalvarMeuC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSalvarMeuC.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvarMeuC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconSalvar.png"))); // NOI18N
+        btnSalvarMeuC.setText("Salvar");
+        btnSalvarMeuC.setBorderPainted(false);
+        btnSalvarMeuC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvarMeuC.setFocusPainted(false);
+        btnSalvarMeuC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarMeuCActionPerformed(evt);
+            }
+        });
+        MeuCadastro.add(btnSalvarMeuC);
+        btnSalvarMeuC.setBounds(570, 500, 110, 40);
 
         CampoRua11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/campo.png"))); // NOI18N
         MeuCadastro.add(CampoRua11);
-        CampoRua11.setBounds(430, 110, 300, 40);
+        CampoRua11.setBounds(430, 170, 300, 40);
 
         btnBuscarCEP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnBuscarCEP.setText("Buscar");
+        btnBuscarCEP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconPesquisar.png"))); // NOI18N
         btnBuscarCEP.setBorder(null);
+        btnBuscarCEP.setBorderPainted(false);
+        btnBuscarCEP.setContentAreaFilled(false);
+        btnBuscarCEP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarCEP.setFocusable(false);
         btnBuscarCEP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarCEPActionPerformed(evt);
             }
         });
         MeuCadastro.add(btnBuscarCEP);
-        btnBuscarCEP.setBounds(750, 170, 70, 40);
+        btnBuscarCEP.setBounds(750, 110, 60, 40);
 
         Principal.add(MeuCadastro, "meuCadastro");
 
@@ -763,22 +911,26 @@ public class MenuGerente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(MenuSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 1369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(MenuSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        System.exit(0);
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
@@ -797,61 +949,342 @@ public class MenuGerente extends javax.swing.JFrame {
         MudarTelaMenu("meuCadastro");
     }//GEN-LAST:event_btnMeuCadastroActionPerformed
 
-    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+    private void btnSalvarMeuCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarMeuCActionPerformed
+        userLogado.setNome(jtfNome.getText());
+        userLogado.setCep(jtfCEP.getText());
+        userLogado.setRua(jtfRua.getText());
+        userLogado.setNum_casa(Integer.parseInt(jtfNum.getText()));
+        userLogado.setBairro(jtfBairro.getText());
+        userLogado.setCidade(jtfCidade.getText());
+        userLogado.setUF(jtfUF.getText());
+        userLogado.setUsuario(jtfUsuario.getText());
+        userLogado.setSenha(jtfSenha.getText());
         
-    }//GEN-LAST:event_btnSalvar1ActionPerformed
+        try {
+            enderecoBD.alterar(userLogado);
+            JOptionPane.showMessageDialog(this, "Dados alterados com Sucesso!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar dados!\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        HabilitarMeuCadastro(false);
+    }//GEN-LAST:event_btnSalvarMeuCActionPerformed
+
+    private void btnBuscarCEPfuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCEPfuncActionPerformed
+        ViaCEP viaCep = new ViaCEP();
+
+        try {
+            viaCep.buscar(jtfCEPFunc.getText());
+
+            jtfRuaFunc.setText(viaCep.getLogradouro());
+            jtfBairroFunc.setText(viaCep.getBairro());
+            jtfCidadeFunc.setText(viaCep.getLocalidade());
+            jtfUfFunc.setText(viaCep.getUf());
+
+        } catch (ViaCEPException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar CEP.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarCEPfuncActionPerformed
+
+    private void btnSalvarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarFuncActionPerformed
+        endUser.setNome(jtfNomeFunc.getText());
+        endUser.setCep(jtfCEPFunc.getText());
+        endUser.setRua(jtfRuaFunc.getText());
+        endUser.setNum_casa(Integer.parseInt(jtfNumFunc.getText()));
+        endUser.setBairro(jtfBairroFunc.getText());
+        endUser.setCidade(jtfCidadeFunc.getText());
+        endUser.setUF(jtfUfFunc.getText());
+        endUser.setUsuario(jtfUsuarioFunc.getText());
+        endUser.setSenha(jtfSenhaFunc.getText());
+        endUser.setTipo(cbCargo.getSelectedItem().toString());
+
+        if (endUser.getId_usuario() == 0) {
+            try {
+                enderecoBD.inserir(endUser);
+                JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar Funcionário.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            try {
+                enderecoBD.alterar(endUser);
+                JOptionPane.showMessageDialog(null, "Funcionário atualizado com sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao atualizar dados do Funcionário.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        carregarTableFunc();
+        LimparCadastroFunc();
+        ManipularInterfaceFunc("Navegação");
+    }//GEN-LAST:event_btnSalvarFuncActionPerformed
 
     private void btnBuscarCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCEPActionPerformed
         ViaCEP viaCep = new ViaCEP();
-        
+
         try {
             viaCep.buscar(jtfCEP.getText());
-            
+
             jtfRua.setText(viaCep.getLogradouro());
             jtfBairro.setText(viaCep.getBairro());
             jtfCidade.setText(viaCep.getLocalidade());
             jtfUF.setText(viaCep.getUf());
-            
+
         } catch (ViaCEPException ex) {
-            Logger.getLogger(MenuGerente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao buscar CEP.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarCEPActionPerformed
+
+    private void jtFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFuncionariosMouseClicked
+        try {
+            endUser = funTM.getRowValue(jtFuncionarios.getSelectedRow());
+
+            jtfNomeFunc.setText(endUser.getNome());
+            jtfCEPFunc.setText(endUser.getCep());
+            jtfRuaFunc.setText(endUser.getRua());
+            jtfNumFunc.setText(String.valueOf(endUser.getNum_casa()));
+            jtfBairroFunc.setText(endUser.getBairro());
+            jtfCidadeFunc.setText(endUser.getCidade());
+            jtfUfFunc.setText(endUser.getUF());
+            cbCargo.setSelectedItem(endUser.getTipo());
+            jtfUsuarioFunc.setText(endUser.getUsuario());
+            jtfSenhaFunc.setText(endUser.getSenha());
+        } catch (Exception ex) {
+            Logger.getLogger(MenuGerente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnEditarFunc.setEnabled(true);
+        HabilitarCadastroFunc(false);
+    }//GEN-LAST:event_jtFuncionariosMouseClicked
+
+    private void btnCancelarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarFuncActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja Cancelar o cadastro do Funcionário ?");
+        if (opcao == 0) {
+            LimparCadastroFunc();
+            JOptionPane.showMessageDialog(null, "Cadastro Cancelado!");
+        }
+        ManipularInterfaceFunc("Navegação");
+    }//GEN-LAST:event_btnCancelarFuncActionPerformed
+
+    private void btnNovoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoFuncActionPerformed
+        LimparCadastroFunc();
+        ManipularInterfaceFunc("Alterar");
+    }//GEN-LAST:event_btnNovoFuncActionPerformed
+
+    private void btnEditarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFuncActionPerformed
+        ManipularInterfaceFunc("Alterar");
+    }//GEN-LAST:event_btnEditarFuncActionPerformed
+
+    private void btnCancelarMeuCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarMeuCActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja cancelar a alteração dos Dados?");
+        if (opcao == 0) {
+            carregarCampos();
+            HabilitarMeuCadastro(false);
+        }
+    }//GEN-LAST:event_btnCancelarMeuCActionPerformed
+
+    private void btnSalvarTarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTarifasActionPerformed
+        if (Double.parseDouble(jtfImposto.getText()) > 0) {
+            tarifas.setCor(cbBandeira.getSelectedItem().toString());
+            tarifas.setPorcentagem(2);
+
+            tarifas.setVal_imposto(Double.parseDouble(jtfImposto.getText()));
+
+            tarifas.setVal_kw(Double.parseDouble(jtfValorKW.getText()));
+
+            try {
+                tarifasBD.inserir(tarifas);
+                JOptionPane.showMessageDialog(null, "Tarifas cadastradas com Sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar Tarifas.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            HabilitarCamposTarifas(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Não é possivel cadastrar uma porcentagem negativa para Impostos!!");
+        }
+    }//GEN-LAST:event_btnSalvarTarifasActionPerformed
+
+    private void cbBandeiraPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbBandeiraPropertyChange
+
+    }//GEN-LAST:event_cbBandeiraPropertyChange
+
+    private void cbBandeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBandeiraActionPerformed
+        if (cbBandeira.getSelectedItem() == "Verde") {
+            tarifas.setPorcentagem(2);
+            lblBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Verde.png")));
+        }
+        if (cbBandeira.getSelectedItem() == "Amarela") {
+            tarifas.setPorcentagem(8);
+            lblBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Amarela.png")));
+        }
+        if (cbBandeira.getSelectedItem() == "Vermelha") {
+            tarifas.setPorcentagem(15);
+            lblBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Vermelha.png")));
+        }
+        jtfPorcentagem.setText("" + tarifas.getPorcentagem() + " %");
+    }//GEN-LAST:event_cbBandeiraActionPerformed
+
+    private void cbBandeiraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbBandeiraMouseClicked
+
+    }//GEN-LAST:event_cbBandeiraMouseClicked
+
+    private void btnEditarTarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarTarifasActionPerformed
+        HabilitarCamposTarifas(true);
+    }//GEN-LAST:event_btnEditarTarifasActionPerformed
+
+    private void btnCancelarTarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarTarifasActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(this, "Deseja cancelar a alteração das Tarifas?");
+        if (opcao == 0) {
+            tarifaAtual();
+        }
+    }//GEN-LAST:event_btnCancelarTarifasActionPerformed
+
+    private void btnEditarMeuCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMeuCActionPerformed
+        HabilitarMeuCadastro(true);
+    }//GEN-LAST:event_btnEditarMeuCActionPerformed
+
+    private void tarifaAtual() {
+        try {
+            tarifas = tarifasBD.getDados();
+
+            jtfValorKW.setText(String.valueOf(tarifas.getVal_kw()));
+            jtfImposto.setText(String.valueOf(tarifas.getVal_imposto()));
+            jtfPorcentagem.setText(String.valueOf(tarifas.getPorcentagem()) + " %");
+            cbBandeira.setSelectedItem(tarifas.getCor());
+            HabilitarCamposTarifas(false);
+
+            lblBandeira.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/" + tarifas.getCor() + ".png")));
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar tarifas.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void HabilitarCamposTarifas(boolean modo) {
+        jtfValorKW.setEnabled(modo);
+        jtfImposto.setEnabled(modo);
+        jtfPorcentagem.setEnabled(modo);
+        cbBandeira.setEnabled(modo);
+        btnSalvarTarifas.setEnabled(modo);
+        btnCancelarTarifas.setEnabled(modo);
+        btnEditarTarifas.setEnabled(!modo);
+    }
 
     private void MudarTelaMenu(String tela) {
         CardLayout cl = (CardLayout) Principal.getLayout();
         cl.show(Principal, tela);
     }
-    
-    private void carregarCampos(){
-        jtfNome.setText(endereco.getNome());
-        jtfRua.setText(endereco.getRua());
-        jtfNum.setText("" + endereco.getNum_casa());
-        jtfCEP.setText(endereco.getCep());
-        jtfUsuario.setText(endereco.getUsuario());
-        jtfSenha.setText(endereco.getSenha());        
-    }    
-    
+
+    private void carregarCampos() {
+        jtfNome.setText(userLogado.getNome());
+        jtfRua.setText(userLogado.getRua());
+        jtfNum.setText("" + userLogado.getNum_casa());
+        jtfCEP.setText(userLogado.getCep());
+        jtfBairro.setText(userLogado.getBairro());
+        jtfCidade.setText(userLogado.getCidade());
+        jtfUF.setText(userLogado.getUF());
+        jtfUsuario.setText(userLogado.getUsuario());
+        jtfSenha.setText(userLogado.getSenha());
+    }
+
+    private void carregarTableFunc() {
+        FuncionarioTableModel fun = (FuncionarioTableModel) jtFuncionarios.getModel();
+        try {
+            funTM.setDados(enderecoBD.listarFuncionarios());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar grade.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void HabilitarCadastroFunc(boolean modo) {
+        jtfNomeFunc.setEnabled(modo);
+        jtfCEPFunc.setEnabled(modo);
+        jtfRuaFunc.setEnabled(modo);
+        jtfNumFunc.setEnabled(modo);
+        jtfBairroFunc.setEnabled(modo);
+        jtfCidadeFunc.setEnabled(modo);
+        jtfUfFunc.setEnabled(modo);
+        jtfUsuarioFunc.setEnabled(modo);
+        jtfSenhaFunc.setEnabled(modo);
+        cbCargo.setEnabled(modo);
+        btnSalvarFunc.setEnabled(modo);
+        btnCancelarFunc.setEnabled(modo);
+    }
+
+    private void LimparCadastroFunc() {
+        jtfNomeFunc.setText("");
+        jtfCEPFunc.setText("");
+        jtfRuaFunc.setText("");
+        jtfNumFunc.setText("");
+        jtfBairroFunc.setText("");
+        jtfCidadeFunc.setText("");
+        jtfUfFunc.setText("");
+        jtfUsuarioFunc.setText("");
+        jtfSenhaFunc.setText("");
+        cbCargo.setSelectedItem(null);
+        endUser.setId_usuario(0);
+    }
+
+    private void HabilitarMeuCadastro(boolean modo) {
+        jtfNome.setEnabled(modo);
+        jtfCEP.setEnabled(modo);
+        jtfRua.setEnabled(modo);
+        jtfNum.setEnabled(modo);
+        jtfBairro.setEnabled(modo);
+        jtfCidade.setEnabled(modo);
+        jtfUF.setEnabled(modo);
+        jtfUsuario.setEnabled(modo);
+        jtfSenha.setEnabled(modo);
+        btnSalvarMeuC.setEnabled(modo);
+        btnCancelarMeuC.setEnabled(modo);
+        btnEditarMeuC.setEnabled(!modo);
+    }
+
+    private void ManipularInterfaceFunc(String modo) {
+        switch (modo) {
+            case "Navegação":
+                btnNovoFunc.setEnabled(true);
+                btnCancelarFunc.setEnabled(false);
+                btnEditarFunc.setEnabled(false);
+                btnSalvarFunc.setEnabled(false);
+                HabilitarCadastroFunc(false);
+                break;
+            case "Seleção":
+                btnNovoFunc.setEnabled(true);
+                btnCancelarFunc.setEnabled(false);
+                btnEditarFunc.setEnabled(true);
+                btnSalvarFunc.setEnabled(false);
+                HabilitarCadastroFunc(false);
+                break;
+            case "Alterar":
+                btnNovoFunc.setEnabled(true);
+                btnCancelarFunc.setEnabled(true);
+                btnEditarFunc.setEnabled(false);
+                btnSalvarFunc.setEnabled(true);
+                HabilitarCadastroFunc(true);
+                break;
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CampoBairro1;
+    private javax.swing.JLabel CampoBairro;
     private javax.swing.JLabel CampoBairro2;
-    private javax.swing.JLabel CampoBandeira;
-    private javax.swing.JLabel CampoBandeira1;
-    private javax.swing.JLabel CampoBandeira2;
-    private javax.swing.JLabel CampoBandeira3;
-    private javax.swing.JLabel CampoCEP1;
+    private javax.swing.JLabel CampoCEP;
     private javax.swing.JLabel CampoCidade;
     private javax.swing.JLabel CampoCidade1;
+    private javax.swing.JLabel CampoImposto;
+    private javax.swing.JLabel CampoKw;
+    private javax.swing.JLabel CampoKw1;
+    private javax.swing.JLabel CampoNome;
+    private javax.swing.JLabel CampoNum;
     private javax.swing.JLabel CampoRua10;
     private javax.swing.JLabel CampoRua11;
-    private javax.swing.JLabel CampoRua3;
+    private javax.swing.JLabel CampoRua12;
     private javax.swing.JLabel CampoRua4;
-    private javax.swing.JLabel CampoRua5;
-    private javax.swing.JLabel CampoRua6;
-    private javax.swing.JLabel CampoRua7;
     private javax.swing.JLabel CampoRua8;
     private javax.swing.JLabel CampoRua9;
     private javax.swing.JLabel CampoSenha;
     private javax.swing.JLabel CampoSenha1;
+    private javax.swing.JLabel CampoUF;
     private javax.swing.JLabel CampoUsuario;
     private javax.swing.JLabel CampoUsuario1;
     private javax.swing.JPanel Funcionarios;
@@ -862,28 +1295,31 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JPanel Principal;
     private javax.swing.JPanel Tarifas;
     private javax.swing.JButton btnBuscarCEP;
-    private javax.swing.JButton btnCancelar1;
-    private javax.swing.JButton btnCancelar2;
-    private javax.swing.JButton btnCancelar3;
-    private javax.swing.JButton btnEditar1;
-    private javax.swing.JButton btnEditar2;
-    private javax.swing.JButton btnEditar3;
+    private javax.swing.JButton btnBuscarCEPfunc;
+    private javax.swing.JButton btnCancelarFunc;
+    private javax.swing.JButton btnCancelarMeuC;
+    private javax.swing.JButton btnCancelarTarifas;
+    private javax.swing.JButton btnEditarFunc;
+    private javax.swing.JButton btnEditarMeuC;
+    private javax.swing.JButton btnEditarTarifas;
     private javax.swing.JButton btnFuncionarios;
     private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnMeuCadastro;
+    private javax.swing.JButton btnNovoFunc;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton btnSalvar1;
-    private javax.swing.JButton btnSalvar2;
-    private javax.swing.JButton btnSalvar3;
+    private javax.swing.JButton btnSalvarFunc;
+    private javax.swing.JButton btnSalvarMeuC;
+    private javax.swing.JButton btnSalvarTarifas;
     private javax.swing.JButton btnTarifas;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbBandeira;
+    private javax.swing.JComboBox<String> cbCargo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -896,7 +1332,7 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -911,12 +1347,13 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCEPFunc;
     private javax.swing.JTextField jtfCidade;
     private javax.swing.JTextField jtfCidadeFunc;
+    private javax.swing.JTextField jtfImposto;
     private javax.swing.JTextField jtfNome;
     private javax.swing.JTextField jtfNomeFunc;
     private javax.swing.JTextField jtfNum;
     private javax.swing.JTextField jtfNumFunc;
+    private javax.swing.JLabel jtfPorcentagem;
     private javax.swing.JTextField jtfRua;
-    private javax.swing.JTextField jtfRua1;
     private javax.swing.JTextField jtfRuaFunc;
     private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JPasswordField jtfSenhaFunc;
@@ -924,5 +1361,7 @@ public class MenuGerente extends javax.swing.JFrame {
     private javax.swing.JTextField jtfUfFunc;
     private javax.swing.JTextField jtfUsuario;
     private javax.swing.JTextField jtfUsuarioFunc;
+    private javax.swing.JTextField jtfValorKW;
+    private javax.swing.JLabel lblBandeira;
     // End of variables declaration//GEN-END:variables
 }

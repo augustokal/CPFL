@@ -23,7 +23,7 @@ public class Login extends javax.swing.JFrame {
             String user = txtUsuario.getText();
             String senha = txtSenha.getText();
 
-            String sql = "SELECT u.*, e.id_end, e.cep, e.rua, e.num_casa FROM usuario as u INNER JOIN endereco as e on (u.id_usuario = e.id_usuario)"
+            String sql = "SELECT u.*, e.* FROM usuario as u INNER JOIN endereco as e on (u.id_usuario = e.id_usuario)"
                     + " where usuario = ? and senha = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -34,13 +34,16 @@ public class Login extends javax.swing.JFrame {
             if (rs.next()) {
                 endereco.setId_usuario(rs.getInt("id_usuario"));
                 endereco.setNome(rs.getString("nome"));
+                endereco.setCep(rs.getString("cep"));
+                endereco.setRua(rs.getString("rua"));
+                endereco.setNum_casa(rs.getInt("num_casa"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setCidade(rs.getString("cidade"));
+                endereco.setUF(rs.getString("uf"));
                 endereco.setTipo(rs.getString("tipo"));
                 endereco.setUsuario(rs.getString("usuario"));
                 endereco.setSenha(rs.getString("senha"));
                 endereco.setId_end(rs.getInt("id_end"));
-                endereco.setCep(rs.getString("cep"));
-                endereco.setRua(rs.getString("rua"));
-                endereco.setNum_casa(rs.getInt("num_casa"));
                 return true;
             }
         } catch (Exception e) {
@@ -196,11 +199,6 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-//        MenuCliente menuCli = new MenuCliente();
-//        menuCli.setVisible(true);        
-//        
-//        MenuGerente menuGerente = new MenuGerente();
-//        menuGerente.setVisible(true);
         if (checarUsuario() == true) {
             String nomeU = endereco.getNome();
             if (nomeU != null) {
@@ -218,7 +216,7 @@ public class Login extends javax.swing.JFrame {
                 }
                 if ("Cliente".equals(endereco.getTipo())) {
                     System.out.println("Validou cliente");
-                    MenuCliente menuCliente = new MenuCliente();
+                    MenuCliente menuCliente = new MenuCliente(endereco);
                     menuCliente.setVisible(true);
                     dispose();
                 }
